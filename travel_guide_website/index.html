@@ -317,10 +317,15 @@ countries.forEach((c,i)=>{
        <div class="attractions">${c.sights.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
      </div>
    </div>`;
- // The "+" button opens the fullscreen gallery (handled by the gallery script).
- // Only toggle the inline details when the explore area (not the +) is clicked.
- const exploreEl = card.querySelector(".explore");
- exploreEl.addEventListener("click", (ev)=>{ if(ev.target.closest('.toggle')) return; card.classList.toggle("open"); });
+ // Make the entire destination card clickable/touchable: open fullscreen gallery.
+ // This ensures taps on phones open the modal regardless of where the user taps.
+ card.addEventListener('click', (ev)=>{
+   // prevent clicks originating from inside an already-open modal or controls from duplicating behavior
+   const modal = document.getElementById('galleryModal');
+   if(modal && modal.classList.contains('open')) return;
+   ev.preventDefault();
+   openGalleryForCard(card);
+ });
  // add fallback for cover image if remote image fails
  grid.appendChild(card);
  const _ci = card.querySelector('.cover-img');
