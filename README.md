@@ -1,25 +1,22 @@
-<<<<<<< HEAD
-# travel
-=======
 # WanderVista Group Tours Website
 
 This folder contains the polished WanderVista site you provided. I inspected `travel_guide_website/index.html` and it already includes:
 
 - Attractive layout, fonts and hero imagery
-- Destination cards with clickable expand (`＋`) buttons
-- Two 20s preview videos embedded via YouTube for Japan and South Korea
+- Destination cards with clickable expand (＋) buttons
+- Local 20s preview videos for Tokyo and Seoul
 - Contact details (phone and email)
 
 What I added:
-- `travel_guide_website/index.backup.html` — small backup placeholder (original content already retained in the folder).
-- A GitHub Actions workflow at `.github/workflows/deploy.yml` (if you want me to add it next, confirm and I'll create it). 
-- Downloaded two Pexels preview MP4s into `travel_guide_website/assets/videos/`:
-	- `tokyo_preview.mp4` (Tokyo preview)
-	- `seoul_preview.mp4` (Seoul preview)
-	The site now serves previews from local files and limits those videos to the first 20 seconds.
+- `travel_guide_website/index.backup.html` — a backup of the previous index.
+- A GitHub Actions workflow at `.github/workflows/deploy.yml` (added to support Pages deployment when pushed).
+- Downloaded two preview MP4s into `travel_guide_website/assets/videos/`:
+  - `tokyo_preview.mp4`
+  - `seoul_preview.mp4`
 
 Next options (pick one):
-- I can prepare and add a GitHub Pages workflow and README steps for deployment.
-- I can replace the YouTube embeds with hosted MP4s (you can upload MP4s under `travel_guide_website/assets/videos/`).
-- I can merge my earlier prototype (in `C:\project`) into this site — or copy its assets into a `staging/` folder here for review.
->>>>>>> 3cc8b69 (Initial commit: WanderVista Group Tours site)
+- I can prepare and add step-by-step Pages deployment instructions in this README.
+- I can push these changes to GitHub and verify the GitHub Actions Pages deployment.
+- I can publish the site to Netlify/Cloudflare Pages immediately (no git push required).
+
+Tell me which option you prefer and I will proceed.
