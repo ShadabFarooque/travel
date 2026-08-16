@@ -247,8 +247,8 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
       <video id="galleryMainVid" src="" controls style="display:none; width:100%"></video>
       <div class="thumbs" id="galleryThumbs" aria-hidden="false"></div>
     </div>
-    <div class="controls">
-      <button class="close-btn" id="galleryClose">Close</button>
+      <div class="controls">
+        <button class="close-btn" id="galleryClose" aria-label="Close gallery">✕</button>
       <div style="display:flex;gap:8px">
         <button class="nav-btn" id="galleryPrev">◀</button>
         <button class="nav-btn" id="galleryNext">▶</button>
@@ -317,8 +317,10 @@ countries.forEach((c,i)=>{
        <div class="attractions">${c.sights.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
      </div>
    </div>`;
- card.querySelector(".toggle").addEventListener("click",()=>card.classList.toggle("open"));
- card.querySelector(".explore").addEventListener("click",()=>card.classList.toggle("open"));
+ // The "+" button opens the fullscreen gallery (handled by the gallery script).
+ // Only toggle the inline details when the explore area (not the +) is clicked.
+ const exploreEl = card.querySelector(".explore");
+ exploreEl.addEventListener("click", (ev)=>{ if(ev.target.closest('.toggle')) return; card.classList.toggle("open"); });
  // add fallback for cover image if remote image fails
  grid.appendChild(card);
  const _ci = card.querySelector('.cover-img');
