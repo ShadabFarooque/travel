@@ -319,13 +319,19 @@ countries.forEach((c,i)=>{
    </div>`;
  // Make the entire destination card clickable/touchable: open fullscreen gallery.
  // This ensures taps on phones open the modal regardless of where the user taps.
- card.addEventListener('click', (ev)=>{
-   // prevent clicks originating from inside an already-open modal or controls from duplicating behavior
-   const modal = document.getElementById('galleryModal');
-   if(modal && modal.classList.contains('open')) return;
-   ev.preventDefault();
-   openGalleryForCard(card);
- });
+card.addEventListener('click', (ev)=>{
+  // prevent clicks originating from inside an already-open modal
+  const modal = document.getElementById('galleryModal');
+  if(modal && modal.classList.contains('open')) return;
+  // Trigger the existing .toggle click which the gallery script listens to
+  const toggleBtn = card.querySelector('.toggle');
+  if(toggleBtn){
+    // ensure the actual button receives the click (works on touch devices)
+    toggleBtn.click();
+    return;
+  }
+  ev.preventDefault();
+});
  // add fallback for cover image if remote image fails
  grid.appendChild(card);
  const _ci = card.querySelector('.cover-img');
