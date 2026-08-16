@@ -106,9 +106,9 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
   padding: 22px;
 }
 .gallery-modal.open { display: flex; }
-.gallery-modal .frame { max-width:1200px; width:100%; max-height:90vh; display:flex; gap:12px; align-items:flex-start; }
-.gallery-modal .viewer{flex:1;}
-.gallery-modal img, .gallery-modal video { width:100%; height:auto; max-height:78vh; border-radius:8px; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
+.gallery-modal .frame { max-width:1200px; width:100%; max-height:100vh; display:flex; gap:12px; align-items:flex-start; }
+.gallery-modal .viewer{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.gallery-modal img, .gallery-modal video { width:100%; height:auto; max-height:78vh; border-radius:8px; box-shadow: 0 10px 40px rgba(0,0,0,.6); object-fit:contain }
 .gallery-modal .controls { width:120px; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
 .gallery-modal .thumbs { display:flex; gap:8px; margin-top:12px; overflow-x:auto; }
 .gallery-modal .thumbs img { height:72px; cursor:pointer; object-fit:cover; border-radius:6px; opacity:.9; transition:.18s }
@@ -462,6 +462,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
   closeBtn.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); try{ mainVid.pause(); mainVid.src=''; }catch(e){} });
   prevBtn.addEventListener('click', ()=> showItem((currentIndex-1+currentList.length)%currentList.length));
   nextBtn.addEventListener('click', ()=> showItem((currentIndex+1)%currentList.length));
+
+  // Touch / swipe support for mobile: swipe left/right to navigate
+  let touchStartX = 0, touchStartY = 0;
+  const viewerEl = modal.querySelector('.viewer');
+  if(viewerEl){
+    viewerEl.addEventListener('touchstart', (e)=>{
+      const t = e.changedTouches[0]; touchStartX = t.clientX; touchStartY = t.clientY;
+    }, {passive:true});
+    viewerEl.addEventListener('touchend', (e)=>{
+      const t = e.changedTouches[0]; const dx = t.clientX - touchStartX; const dy = t.clientY - touchStartY;
+      const threshold = 40; // px
+      if(Math.abs(dx) > threshold && Math.abs(dx) > Math.abs(dy)){
+        if(dx < 0) nextBtn.click(); else prevBtn.click();
+      }
+    }, {passive:true});
+  }
 
   document.addEventListener('keydown', (ev)=>{
     if(!modal.classList.contains('open')) return;
