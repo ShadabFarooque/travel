@@ -59,9 +59,10 @@ h2{font:800 clamp(34px,5vw,54px)/1.05 "Playfair Display",serif;margin:8px 0}
 .destination:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .dest-cover{height:245px;background-size:cover;background-position:center;position:relative}
 .dest-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.65))}
+.dest-cover img.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .badge{position:absolute;top:15px;left:15px;background:rgba(255,255,255,.9);padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800;z-index:2}
-.dest-title{position:absolute;left:18px;bottom:18px;color:#fff;z-index:2}
-.dest-title h3{margin:0;font-size:24px}.dest-title span{font-size:12px;opacity:.85}
+.dest-title{position:absolute;left:18px;bottom:18px;z-index:2;background:rgba(0,0,0,.65);padding:10px 12px;border-radius:12px;backdrop-filter:blur(3px)}
+.dest-title h3{margin:0;font-size:24px;color:#fff}.dest-title span{font-size:12px;opacity:1;color:#f1f1f1}
 .dest-body{padding:20px}
 .dest-body p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 15px}
 .explore{display:flex;justify-content:space-between;align-items:center;color:var(--accent2);font-weight:800;font-size:13px}
@@ -92,6 +93,28 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 @media(max-width:560px){
  .hero{min-height:86vh}.hero h1{font-size:50px}.section{padding:70px 0}.destination-grid{grid-template-columns:1fr}.stats{margin-top:-25px}.upcoming{padding:30px}.upcoming h3{font-size:36px}.contact{padding:30px}.nav-inner{padding:0 10px}
 }
+
+/* Fullscreen gallery modal styles */
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 22px;
+}
+.gallery-modal.open { display: flex; }
+.gallery-modal .frame { max-width:1200px; width:100%; max-height:90vh; display:flex; gap:12px; align-items:flex-start; }
+.gallery-modal .viewer{flex:1;}
+.gallery-modal img, .gallery-modal video { width:100%; height:auto; max-height:78vh; border-radius:8px; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
+.gallery-modal .controls { width:120px; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+.gallery-modal .thumbs { display:flex; gap:8px; margin-top:12px; overflow-x:auto; }
+.gallery-modal .thumbs img { height:72px; cursor:pointer; object-fit:cover; border-radius:6px; opacity:.9; transition:.18s }
+.gallery-modal .thumbs img.active { outline:3px solid rgba(255,255,255,.12); opacity:1 }
+.gallery-modal .close-btn, .gallery-modal .nav-btn { background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.12); padding:8px 10px; border-radius:8px; cursor:pointer }
+.gallery-modal .close-btn:hover, .gallery-modal .nav-btn:hover { background:rgba(255,255,255,.12) }
 </style>
 </head>
 <body>
@@ -147,7 +170,7 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 <section class="section" id="destinations">
 <div class="container">
   <div class="section-head">
-    <div><div class="kicker">Your world, our route</div><h2>Destinations I've explored</h2></div>
+    <div><div class="kicker">Your world, our route</div><h2>Destinations toured</h2></div>
     <p class="lead">Tap any country to reveal signature sights, a visual gallery and the kind of experience your group can expect.</p>
   </div>
   <div class="destination-grid" id="destinationGrid"></div>
@@ -158,7 +181,7 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 <div class="container">
   <div class="section-head">
     <div><div class="kicker">Watch the feeling</div><h2>Destination previews</h2></div>
-    <p class="lead">Short visual teasers for the upcoming Japan and South Korea adventure. Videos are capped to the first 20 seconds for a fast, cinematic preview.</p>
+    <p class="lead">Video highlights from the journey ahead.</p>
   </div>
   <div class="video-grid">
     <article class="video-card">
@@ -217,15 +240,45 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 </section>
 </main>
 
+<!-- Fullscreen gallery modal -->
+<div id="galleryModal" class="gallery-modal" aria-hidden="true">
+  <div class="frame">
+    <div class="viewer">
+      <img id="galleryMainImg" src="" alt="">
+      <video id="galleryMainVid" src="" controls style="display:none; width:100%"></video>
+      <div class="thumbs" id="galleryThumbs" aria-hidden="false"></div>
+    </div>
+    <div class="controls">
+      <button class="close-btn" id="galleryClose">Close</button>
+      <div style="display:flex;gap:8px">
+        <button class="nav-btn" id="galleryPrev">◀</button>
+        <button class="nav-btn" id="galleryNext">▶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer><div class="container">© 2026 WanderVista Group Tours · International group travel · Built for adventure.</div></footer>
 
 <script>
 const countries = [
- {name:"Australia", flag:"🇦🇺", region:"Oceania", hero:"https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d7?w=1600&q=88", q:"sydney,australia", sights:["Sydney Opera House","Harbour Bridge","Bondi Beach"]},
+ {name:"Australia", flag:"🇦🇺", region:"Oceania", hero:"assets/images/australia-opera-house.jpg", q:"sydney,australia", sights:["Sydney Opera House","Harbour Bridge","Bondi Beach"], gallery:[
+    "assets/images/australia-opera-house.jpg",
+    "assets/images/australia-2.jpg",
+    "assets/images/australia-3.jpg"
+  ]},
  {name:"Malaysia", flag:"🇲🇾", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1600&q=88", q:"kuala-lumpur,malaysia", sights:["Petronas Towers","Batu Caves","Langkawi"]},
  {name:"Singapore", flag:"🇸🇬", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1600&q=88", q:"singapore,marina-bay", sights:["Marina Bay Sands","Gardens by the Bay","Sentosa"]},
- {name:"Hong Kong", flag:"🇭🇰", region:"East Asia", hero:"https://images.unsplash.com/photo-1536599018102-9f803c8c7b0b?w=1600&q=88", q:"hong-kong,victoria-harbour", sights:["Victoria Harbour","The Peak","Star Ferry"]},
- {name:"Macau", flag:"🇲🇴", region:"East Asia", hero:"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=88", q:"macau,ruins-st-pauls", sights:["Ruins of St. Paul's","Senado Square","Macau Tower"]},
+ {name:"Hong Kong", flag:"🇭🇰", region:"East Asia", hero:"assets/images/hk-skyline.jpg", q:"hong-kong,victoria-harbour", sights:["Victoria Harbour","The Peak","Star Ferry"], gallery:[
+    "assets/images/hk-skyline.jpg",
+    "https://picsum.photos/seed/hk-2/1200/800",
+    "https://picsum.photos/seed/hk-3/1200/800"
+  ]},
+ {name:"Macau", flag:"🇲🇴", region:"East Asia", hero:"https://thumbs.dreamstime.com/b/macau-september-city-panoramic-view-guia-fortress-348986107.jpg", q:"macau,ruins-st-pauls", sights:["Ruins of St. Paul's","Senado Square","Macau Tower"], gallery:[
+    "https://thumbs.dreamstime.com/b/macau-september-city-panoramic-view-guia-fortress-348986107.jpg",
+    "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=88",
+    "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1600&q=88"
+  ]},
  {name:"Vietnam", flag:"🇻🇳", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1528127269322-539801943592?w=1600&q=88", q:"halong-bay,vietnam", sights:["Ha Long Bay","Hanoi Old Quarter","Hoi An"]},
  {name:"Thailand", flag:"🇹🇭", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=88", q:"bangkok,thailand", sights:["Grand Palace","Bangkok","Phi Phi Islands"]},
  {name:"Kazakhstan", flag:"🇰🇿", region:"Central Asia", hero:"https://about-kazakhstan.com/images/covers-ai/kazakhstan-tourism-real.webp", q:"almaty,kazakhstan", sights:["Almaty","Charyn Canyon","Kok Tobe"]},
@@ -235,20 +288,25 @@ const countries = [
  {name:"Georgia", flag:"🇬🇪", region:"Caucasus", hero:"https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1600&q=88", q:"tbilisi,georgia", sights:["Tbilisi","Kazbegi","Old Town"]},
  {name:"Azerbaijan", flag:"🇦🇿", region:"Caucasus", hero:"https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1600&q=88", q:"baku,azerbaijan", sights:["Baku Old City","Flame Towers","Heydar Aliyev Center"]},
  {name:"Japan", flag:"🇯🇵", region:"Upcoming · East Asia", hero:"https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp", q:"tokyo,japan", sights:["Tokyo","Mount Fuji","Kyoto"]},
- {name:"South Korea", flag:"🇰🇷", region:"Upcoming · East Asia", hero:"https://images.unsplash.com/photo-1538485399081-7c8972c1f7a6?w=1600&q=88", q:"seoul,south-korea", sights:["Seoul","Gyeongbokgung","N Seoul Tower"]}
+ {name:"South Korea", flag:"🇰🇷", region:"Upcoming · East Asia", hero:"assets/images/seoul-city.jpg", q:"seoul,south-korea", sights:["Seoul","Gyeongbokgung","N Seoul Tower"], gallery:[
+    "assets/images/seoul-city.jpg",
+    "assets/images/sk-2.jpg",
+    "assets/images/sk-3.jpg"
+  ]}
 ];
 
 const grid = document.getElementById("destinationGrid");
 countries.forEach((c,i)=>{
  const card=document.createElement("article");
  card.className="destination";
- const gallery = [
+ const gallery = (c.gallery && c.gallery.length) ? c.gallery : [
    c.hero,
    `https://loremflickr.com/900/650/${encodeURIComponent(c.q)}/all`,
    `https://loremflickr.com/900/650/${encodeURIComponent(c.q)},tourism/all`
  ];
  card.innerHTML = `
-   <div class="dest-cover" style="background-image:url('${c.hero}')">
+    <div class="dest-cover" style="background-image:url('${c.hero}')">
+      <img class="cover-img" src="${c.hero}" alt="${c.name} cover">
      <span class="badge">${i<13 ? "GROUP TOURED" : "UPCOMING"}</span>
      <div class="dest-title"><h3>${c.flag} ${c.name}</h3><span>${c.region}</span></div>
    </div>
@@ -262,7 +320,10 @@ countries.forEach((c,i)=>{
    </div>`;
  card.querySelector(".toggle").addEventListener("click",()=>card.classList.toggle("open"));
  card.querySelector(".explore").addEventListener("click",()=>card.classList.toggle("open"));
+ // add fallback for cover image if remote image fails
  grid.appendChild(card);
+ const _ci = card.querySelector('.cover-img');
+ if(_ci){ _ci.onerror = function(){ this.onerror=null; this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="100%" height="100%" fill="%23f1f1f1"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-size="48" fill="%2366736e">Image%20unavailable</text></svg>'; }; }
 });
 
 window.addEventListener("scroll",()=>document.getElementById("nav").classList.toggle("scrolled",scrollY>30));
@@ -282,6 +343,113 @@ document.addEventListener('DOMContentLoaded', ()=>{
     v.play().catch(()=>{});
   });
 });
+</script>
+<script>
+// --- Fullscreen gallery logic (separate script) ---
+(function(){
+  const modal = document.getElementById('galleryModal');
+  const mainImg = document.getElementById('galleryMainImg');
+  const mainVid = document.getElementById('galleryMainVid');
+  const thumbs = document.getElementById('galleryThumbs');
+  const closeBtn = document.getElementById('galleryClose');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+
+  let currentList = [];
+  let currentIndex = 0;
+
+  function showItem(i){
+    if(!currentList || currentList.length===0) return;
+    const item = currentList[i];
+    if(!item) return;
+    if(item.type === 'video'){
+      mainImg.style.display='none';
+      mainVid.style.display='block';
+      mainVid.src = item.src;
+      try{ mainVid.currentTime = 0; mainVid.play(); }catch(e){}
+    } else {
+      try{ mainVid.pause(); }catch(e){}
+      mainVid.src=''; mainVid.style.display='none';
+      mainImg.style.display='block';
+      mainImg.src = item.src;
+    }
+    Array.from(thumbs.children).forEach((t,idx)=> t.classList.toggle('active', idx===i));
+    currentIndex = i;
+  }
+
+  // Build image/video list using the card's gallery images first (more reliable), then fall back to country data
+  function buildListFromCardAndCountry(card, country){
+    const list = [];
+    if(country && country.hero) list.push({type:'image', src:country.hero});
+    // prefer images already rendered inside the card's .gallery
+    if(card){
+      const imgs = Array.from(card.querySelectorAll('.gallery img')) || [];
+      imgs.forEach(img => { if(img.src) list.push({type:'image', src:img.src}); });
+    }
+    // include any explicit gallery images on the country object
+    if(country && Array.isArray(country.gallery)){
+      country.gallery.forEach(u=>{ if(u) list.push({type:'image', src:u}); });
+    }
+    // include any video entries in country.sights (if provided as objects)
+    if(country && Array.isArray(country.sights)){
+      country.sights.forEach(s=>{
+        if(s && typeof s === 'object' && s.src){ list.push({type:s.type||'image', src:s.src}); }
+      });
+    }
+    // fallback: if still empty, create some generated image URLs from country.q
+    if(list.length === 0 && country){
+      list.push({type:'image', src:`https://loremflickr.com/1200/800/${encodeURIComponent(country.q||country.name)}/all`});
+    }
+    return list.filter((v,i,a)=>a.findIndex(x=>x.src===v.src)===i);
+  }
+
+  function openGalleryForCard(card){
+    const rawName = card.dataset.country || card.querySelector('.dest-title h3')?.textContent || '';
+    if(!rawName) return;
+    const countryNameText = rawName.trim();
+    // find country by loose matching: name contained in title or q matches
+    const country = (window.countries||[]).find(c=> {
+      if(!c) return false;
+      if((c.name && countryNameText.includes(c.name)) || (c.q && countryNameText.includes(c.q.split(',')[0]))) return true;
+      return false;
+    });
+    const list = buildListFromCardAndCountry(card, country);
+    if(list.length === 0) return;
+    currentList = list;
+    thumbs.innerHTML = '';
+    currentList.forEach((it,idx)=>{
+      const t = document.createElement('img');
+      t.src = it.src; t.alt = (country?country.name:'photo')+' '+(idx+1);
+      t.addEventListener('click', ()=> showItem(idx));
+      // fallback if thumb fails to load
+      t.onerror = function(){ if(country && country.hero) this.src = country.hero; };
+      thumbs.appendChild(t);
+    });
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    showItem(0);
+  }
+
+  document.addEventListener('click', e=>{
+    const t = e.target.closest('.toggle');
+    if(!t) return;
+    e.preventDefault();
+    const card = t.closest('.destination') || t.closest('article');
+    if(card) openGalleryForCard(card);
+  });
+
+  closeBtn.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); try{ mainVid.pause(); mainVid.src=''; }catch(e){} });
+  prevBtn.addEventListener('click', ()=> showItem((currentIndex-1+currentList.length)%currentList.length));
+  nextBtn.addEventListener('click', ()=> showItem((currentIndex+1)%currentList.length));
+
+  document.addEventListener('keydown', (ev)=>{
+    if(!modal.classList.contains('open')) return;
+    if(ev.key==='Escape') closeBtn.click();
+    if(ev.key==='ArrowLeft') prevBtn.click();
+    if(ev.key==='ArrowRight') nextBtn.click();
+  });
+
+  modal.addEventListener('click', (ev)=>{ if(ev.target === modal) closeBtn.click(); });
+})();
 </script>
 </body>
 </html>
