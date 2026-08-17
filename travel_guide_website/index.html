@@ -71,6 +71,18 @@ h2{font:800 clamp(34px,5vw,54px)/1.05 "Playfair Display",serif;margin:8px 0}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
 .gallery img{width:100%;height:92px;object-fit:cover;border-radius:10px}
 .attractions{display:flex;flex-wrap:wrap;gap:7px}.chip{background:#f0f3f0;padding:7px 9px;border-radius:999px;font-size:11px;color:#40534c}
+.video-preview{width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-bottom:14px;position:relative}
+.video-preview:hover{opacity:.9}
+.video-preview::after{content:"▶";color:#fff;font-size:36px;position:absolute}
+.video-preview video{width:100%;height:100%;object-fit:cover;border-radius:10px}
+.itinerary{border-top:1px solid #ecebe6;padding-top:18px;margin-top:18px}
+.itinerary h4{margin:0 0 12px;font:700 16px "Playfair Display",serif;color:var(--ink)}
+.itinerary-table{width:100%;font-size:12px;border-collapse:collapse}
+.itinerary-table td{padding:8px 6px;border-bottom:1px solid #ecebe6}
+.itinerary-table td:first-child{font-weight:700;color:var(--accent2);width:40px}
+.itinerary-table td:nth-child(2){color:var(--muted);font-weight:600}
+.itinerary-table td:nth-child(3){color:#555}
+.itinerary-table td:last-child{color:var(--muted);font-size:11px}
 .video-section{background:#e9eee9}
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .video-card{background:#fff;border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
@@ -86,19 +98,28 @@ h2{font:800 clamp(34px,5vw,54px)/1.05 "Playfair Display",serif;margin:8px 0}
 .contact h2{color:#fff}.contact p{color:#cbd5d1;line-height:1.7}
 .contact-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:24px;display:grid;gap:16px}
 .contact-row{display:flex;gap:13px;align-items:center}.contact-row b{display:block}.contact-row span{color:#cbd5d1;font-size:13px}
+.faq-section{background:#f5f5f5;border-radius:32px;padding:42px}
+.faq-item{margin-bottom:20px}
+.faq-question{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#fff;border-radius:14px;cursor:pointer;font-weight:700;font-size:15px;transition:.25s;user-select:none}
+.faq-question:hover{background:#f0f3f0}
+.faq-question .faq-toggle{font-size:18px;transition:.3s}
+.faq-item.open .faq-question{background:var(--accent2);color:#fff}
+.faq-item.open .faq-toggle{transform:rotate(180deg)}
+.faq-answer{display:none;padding:16px;color:var(--muted);line-height:1.7;font-size:14px;font-weight:400}
+.faq-item.open .faq-answer{display:block}
 footer{padding:35px 0;color:#6b7772;font-size:12px}
 @media(max-width:850px){
- .nav-links{display:none}.stats{grid-template-columns:repeat(2,1fr)}.destination-grid{grid-template-columns:1fr 1fr}.video-grid,.why,.contact,.upcoming{grid-template-columns:1fr}.why-image{height:360px}
+ .nav-links{display:none}.stats{grid-template-columns:repeat(2,1fr)}.destination-grid{grid-template-columns:1fr 1fr}.video-grid,.why,.contact,.upcoming{grid-template-columns:1fr}.why-image{height:360px}.itinerary-table{font-size:11px}.itinerary-table td{padding:6px 4px}.faq-section{padding:24px}
 }
 @media(max-width:560px){
- .hero{min-height:86vh}.hero h1{font-size:50px}.section{padding:70px 0}.destination-grid{grid-template-columns:1fr}.stats{margin-top:-25px}.upcoming{padding:30px}.upcoming h3{font-size:36px}.contact{padding:30px}.nav-inner{padding:0 10px}
+ .hero{min-height:86vh}.hero h1{font-size:50px}.section{padding:70px 0}.destination-grid{grid-template-columns:1fr}.stats{margin-top:-25px}.upcoming{padding:30px}.upcoming h3{font-size:36px}.contact{padding:30px}.nav-inner{padding:0 10px}.itinerary-table{font-size:10px}.itinerary-table td{padding:5px 3px}.faq-question{padding:12px;font-size:14px}.faq-answer{padding:12px}.gallery-modal .frame{gap:0}.gallery-modal .controls{width:auto}.gallery-modal .close-btn{order:1}
 }
 
 /* Fullscreen gallery modal styles */
 .gallery-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0,0,0,0.98);
   display: none;
   align-items: center;
   justify-content: center;
@@ -106,9 +127,9 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
   padding: 22px;
 }
 .gallery-modal.open { display: flex; }
-.gallery-modal .frame { max-width:1200px; width:100%; max-height:100vh; display:flex; gap:12px; align-items:flex-start; }
-.gallery-modal .viewer{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center}
-.gallery-modal img, .gallery-modal video { width:100%; height:auto; max-height:78vh; border-radius:8px; box-shadow: 0 10px 40px rgba(0,0,0,.6); object-fit:contain }
+.gallery-modal .frame { max-width:100%; width:100%; max-height:100%; display:flex; gap:12px; align-items:flex-start; }
+.gallery-modal .viewer{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100vh}
+.gallery-modal img, .gallery-modal video { width:100%; height:auto; max-height:100vh; border-radius:8px; box-shadow: 0 10px 40px rgba(0,0,0,.6); object-fit:contain }
 .gallery-modal .controls { width:120px; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
 .gallery-modal .thumbs { display:flex; gap:8px; margin-top:12px; overflow-x:auto; }
 .gallery-modal .thumbs img { height:72px; cursor:pointer; object-fit:cover; border-radius:6px; opacity:.9; transition:.18s }
@@ -121,7 +142,7 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 <nav id="nav"><div class="container nav-inner">
   <a class="logo" href="#">Wander<span>Vista</span></a>
   <div class="nav-links">
-    <a href="#destinations">Destinations</a><a href="#upcoming">Upcoming</a><a href="#videos">Videos</a><a href="#about">Why Us</a><a href="#contact">Contact</a>
+    <a href="#destinations">Destinations</a><a href="#upcoming">Upcoming</a><a href="#videos">Videos</a><a href="#about">Why Us</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </div>
   <a class="cta" href="tel:+919986008726">Call Now</a>
 </div></nav>
@@ -221,6 +242,60 @@ footer{padding:35px 0;color:#6b7772;font-size:12px}
 </div>
 </section>
 
+<section class="section" id="faq">
+<div class="container">
+  <div class="section-head">
+    <div><div class="kicker">Common Questions</div><h2>Frequently Asked Questions</h2></div>
+    <p class="lead">Everything you need to know about our group tours.</p>
+  </div>
+  <div class="faq-section">
+    <div class="faq-item">
+      <div class="faq-question">✓ What does WanderVista cover in our tours? <span class="faq-toggle">▼</span></div>
+      <div class="faq-answer">
+        WanderVista group tours include:<br>
+        • Accommodation at carefully selected hotels<br>
+        • All internal transportation (flights, trains, coaches)<br>
+        • Professional tour guide throughout the journey<br>
+        • Entrance fees to major attractions and monuments<br>
+        • Airport transfers and ground logistics<br>
+        • Group experiences and curated activities<br>
+        • All pre-tour planning and coordination
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">✗ What is NOT included in our group tours? <span class="faq-toggle">▼</span></div>
+      <div class="faq-answer">
+        Our tours DO NOT include:<br>
+        • Lunch and dinner meals<br>
+        • Personal shopping and souvenirs<br>
+        • Optional activities not mentioned in itinerary<br>
+        • Beverages and extra services at hotels<br>
+        <br>
+        <strong>Note:</strong> Breakfast is included daily. You'll have flexibility to explore local cuisine for lunch and dinner, which allows for authentic dining experiences and dietary preferences.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">How far in advance should I book? <span class="faq-toggle">▼</span></div>
+      <div class="faq-answer">
+        We recommend booking 2-3 months before your desired travel date. This allows time for visa processing, flight arrangements, and group coordination. However, last-minute bookings may be considered depending on availability. Contact us as soon as you're interested!
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">What's the group size for these tours? <span class="faq-toggle">▼</span></div>
+      <div class="faq-answer">
+        Our ideal group size is 8-20 travelers. This ensures a personalized experience with enough variety in the group while maintaining manageability and flexibility during the journey.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Can I customize a tour for my group? <span class="faq-toggle">▼</span></div>
+      <div class="faq-answer">
+        Absolutely! While we offer curated itineraries, we can customize tours for corporate groups, family reunions, or special occasions. Contact us with your requirements and we'll design the perfect journey for your group.
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 <section class="section" id="contact">
 <div class="container">
   <div class="contact">
@@ -279,9 +354,9 @@ const countries = [
     "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1600&q=88"
   ]},
  {name:"Vietnam", flag:"🇻🇳", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1528127269322-539801943592?w=1600&q=88", q:"halong-bay,vietnam", sights:["Ha Long Bay","Hanoi Old Quarter","Hoi An"]},
- {name:"Thailand", flag:"🇹🇭", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=88", q:"bangkok,thailand", sights:["Grand Palace","Bangkok","Phi Phi Islands"]},
+ {name:"Thailand", flag:"🇹🇭", region:"Southeast Asia", hero:"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=88", q:"bangkok,thailand", sights:["Grand Palace","Bangkok","Phi Phi Islands"], video:"../../Thailand/Thailand_15sec_HD.mp4"},
  {name:"Kazakhstan", flag:"🇰🇿", region:"Central Asia", hero:"https://about-kazakhstan.com/images/covers-ai/kazakhstan-tourism-real.webp", q:"almaty,kazakhstan", sights:["Almaty","Charyn Canyon","Kok Tobe"]},
- {name:"Uzbekistan", flag:"🇺🇿", region:"Central Asia", hero:"https://avatars.mds.yandex.net/get-vertis-journal/4220003/ugc-image_1748591546200/orig", q:"samarkand,uzbekistan", sights:["Registan Square","Bukhara","Tashkent"]},
+ {name:"Uzbekistan", flag:"🇺🇿", region:"Central Asia", hero:"https://avatars.mds.yandex.net/get-vertis-journal/4220003/ugc-image_1748591546200/orig", q:"samarkand,uzbekistan", sights:["Registan Square","Bukhara","Tashkent"], video:"../../Uzbekistan/Uzbekistan_15sec_HD.mp4"},
  {name:"UAE", flag:"🇦🇪", region:"Middle East", hero:"assets/images/uae-IMG_6838.JPG", q:"dubai,uae", sights:["Burj Khalifa","Dubai Marina","Desert Safari"], gallery:[
     "assets/images/uae-IMG_6838.JPG",
     "assets/images/uae-IMG_6846.JPG",
@@ -296,12 +371,12 @@ const countries = [
  {name:"Armenia", flag:"🇦🇲", region:"Caucasus", hero:"https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=1600&q=88", q:"yerevan,armenia", sights:["Yerevan","Lake Sevan","Garni Temple"]},
  {name:"Georgia", flag:"🇬🇪", region:"Caucasus", hero:"https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1600&q=88", q:"tbilisi,georgia", sights:["Tbilisi","Kazbegi","Old Town"]},
  {name:"Azerbaijan", flag:"🇦🇿", region:"Caucasus", hero:"https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1600&q=88", q:"baku,azerbaijan", sights:["Baku Old City","Flame Towers","Heydar Aliyev Center"]},
- {name:"Japan", flag:"🇯🇵", region:"Upcoming · East Asia", hero:"https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp", q:"tokyo,japan", sights:["Tokyo","Mount Fuji","Kyoto"]},
+ {name:"Japan", flag:"🇯🇵", region:"Upcoming · East Asia", hero:"https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp", q:"tokyo,japan", sights:["Tokyo","Mount Fuji","Kyoto"], itinerary:[{day:"1",city:"Tokyo",highlights:"Asakusa, Senso-ji, Tokyo Skytree, Akihabara",night:"Tokyo"},{day:"2",city:"Tokyo",highlights:"Meiji Shrine, Harajuku, Shibuya, Shinjuku",night:"Tokyo"},{day:"3",city:"Kyoto",highlights:"Fushimi Inari, Kiyomizu-dera, Gion, Nishiki Market",night:"Kyoto"},{day:"4",city:"Kyoto",highlights:"Arashiyama, Kinkaku-ji, Nijo Castle, Pontochо",night:"Kyoto"},{day:"5",city:"Hiroshima",highlights:"Peace Memorial Park, Atomic Bomb Dome, Miyajima",night:"Hiroshima"},{day:"6",city:"Osaka",highlights:"Osaka Castle, Shinsekai, Kuromon, Dotonbori",night:"Osaka"},{day:"7",city:"Osaka",highlights:"Umeda, Namba, Shinsaibashi, shopping & departure",night:"Osaka"}]},
  {name:"South Korea", flag:"🇰🇷", region:"Upcoming · East Asia", hero:"assets/images/seoul-city.jpg", q:"seoul,south-korea", sights:["Seoul","Gyeongbokgung","N Seoul Tower"], gallery:[
     "assets/images/seoul-city.jpg",
     "assets/images/sk-2.jpg",
     "assets/images/sk-3.jpg"
-  ]}
+  ], itinerary:[{day:"1",city:"Seoul",highlights:"Incheon Airport, Myeongdong, Gangnam",night:"Seoul"},{day:"2",city:"Seoul",highlights:"Gyeongbokgung Palace, Bukchon Hanok Village, Insadong",night:"Seoul"},{day:"3",city:"Seoul",highlights:"N Seoul Tower, Lotte World, Han River",night:"Seoul"}]}
 ];
 
 const grid = document.getElementById("destinationGrid");
@@ -313,6 +388,20 @@ countries.forEach((c,i)=>{
    `https://loremflickr.com/900/650/${encodeURIComponent(c.q)}/all`,
    `https://loremflickr.com/900/650/${encodeURIComponent(c.q)},tourism/all`
  ];
+ 
+ // Build itinerary HTML if available
+ let itineraryHTML = '';
+ if(c.itinerary && c.itinerary.length > 0){
+   const rows = c.itinerary.map(it => `<tr><td>Day ${it.day}</td><td>${it.city}</td><td>${it.highlights}</td><td>${it.night}</td></tr>`).join('');
+   itineraryHTML = `<div class="itinerary"><h4>📋 Itinerary</h4><table class="itinerary-table"><thead><tr><td>Day</td><td>City</td><td>Main Highlights</td><td>Night</td></tr></thead><tbody>${rows}</tbody></table></div>`;
+ }
+ 
+ // Build video preview if available
+ let videoHTML = '';
+ if(c.video){
+   videoHTML = `<div class="video-preview" data-video-src="${c.video}"><video muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"><source src="${c.video}" type="video/mp4"></video></div>`;
+ }
+ 
  card.innerHTML = `
     <div class="dest-cover" style="background-image:url('${c.hero}')">
       <img class="cover-img" src="${c.hero}" alt="${c.name} cover">
@@ -323,8 +412,10 @@ countries.forEach((c,i)=>{
      <p>Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.</p>
      <div class="explore"><span>Explore ${c.name}</span><button class="toggle" aria-label="Expand ${c.name}" style="border:0;background:none;font-size:20px;cursor:pointer">＋</button></div>
      <div class="details">
+       ${videoHTML}
        <div class="gallery">${gallery.map(src=>`<img loading="lazy" src="${src}" alt="${c.name} tourism photo">`).join("")}</div>
        <div class="attractions">${c.sights.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+       ${itineraryHTML}
      </div>
    </div>`;
  // Make the entire destination card clickable/touchable: open fullscreen gallery.
@@ -333,10 +424,17 @@ card.addEventListener('click', (ev)=>{
   // prevent clicks originating from inside an already-open modal
   const modal = document.getElementById('galleryModal');
   if(modal && modal.classList.contains('open')) return;
+  // Check if click is on video preview - play in fullscreen
+  if(ev.target.closest('.video-preview')){
+    const videoSrc = card.querySelector('.video-preview')?.dataset.videoSrc;
+    if(videoSrc){
+      openVideoFullscreen(videoSrc);
+      return;
+    }
+  }
   // Trigger the existing .toggle click which the gallery script listens to
   const toggleBtn = card.querySelector('.toggle');
   if(toggleBtn){
-    // ensure the actual button receives the click (works on touch devices)
     toggleBtn.click();
     return;
   }
@@ -349,6 +447,22 @@ card.addEventListener('click', (ev)=>{
 });
 
 window.addEventListener("scroll",()=>document.getElementById("nav").classList.toggle("scrolled",scrollY>30));
+
+// Fullscreen video playback function
+function openVideoFullscreen(videoSrc){
+  const modal = document.getElementById('galleryModal');
+  const mainVid = document.getElementById('galleryMainVid');
+  const mainImg = document.getElementById('galleryMainImg');
+  mainImg.style.display='none';
+  mainVid.style.display='block';
+  mainVid.src = videoSrc;
+  mainVid.autoplay = true;
+  mainVid.controls = true;
+  try { mainVid.play(); } catch(e){}
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.getElementById('galleryThumbs').innerHTML='';
+}
 
 // Limit preview videos to the first 20 seconds and loop the preview
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -488,6 +602,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   modal.addEventListener('click', (ev)=>{ if(ev.target === modal) closeBtn.click(); });
 })();
+
+// FAQ Accordion functionality
+document.addEventListener('DOMContentLoaded', ()=>{
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    question.addEventListener('click', ()=>{
+      item.classList.toggle('open');
+    });
+  });
+});
 </script>
 </body>
 </html>
