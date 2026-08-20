@@ -70,7 +70,7 @@ h2{font:800 clamp(34px,5vw,54px)/1.05 "Playfair Display",serif;margin:8px 0}
 .itinerary{border-top:1px solid #ecebe6;padding-top:18px;margin-top:18px}
 .itinerary h4{margin:0 0 12px;font:700 16px "Playfair Display",serif;color:var(--ink)}
 .itinerary-table{width:100%;font-size:12px;border-collapse:collapse}
-.itinerary-table td{padding:8px 6px;border-bottom:1px solid #ecebe6}
+.itinerary-table td{padding:8px 6px;border-bottom:1px solid #ecebe6;white-space:pre-line}
 .itinerary-table td:first-child{font-weight:700;color:var(--accent2);width:40px}
 .video-section{background:#e9eee9}
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
