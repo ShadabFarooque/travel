@@ -14,8 +14,7 @@ npm start
 2. Open [http://localhost:3000](http://localhost:3000) for the public site.
 3. Open [http://localhost:3000/admin](http://localhost:3000/admin) for the dashboard.
 
-Default admin password: `WanderVista2026!`  
-Change it immediately under **Settings**.
+Set `ADMIN_PASSWORD` to a unique password of at least 12 characters before the first start.
 
 4. Click **Save changes** after editing. Files update under `travel_guide_website/data/`.
 5. Refresh the public site. When you are ready to publish, commit and push (GitHub Pages still deploys `travel_guide_website`).
@@ -52,4 +51,4 @@ Paste your GA4 Measurement ID in **SEO & Analytics** and save. The public site l
 
 The workflow still publishes `travel_guide_website`. The admin API only runs on your computer (`npm start`). Leads are captured when visitors use the form against that server, or when they tap WhatsApp on the live site.
 
-Set `ADMIN_PASSWORD` in the environment before the first start if you do not want the default password written into `data/admin-secret.json`.
+Set `ADMIN_PASSWORD` in the environment before the first start. The server refuses to start without it when creating the admin secret.

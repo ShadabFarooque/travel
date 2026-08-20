@@ -12,8 +12,10 @@ const PRIVATE = path.join(ROOT, "data");
 const UPLOADS = path.join(PUBLIC, "assets", "uploads");
 const SECRET_FILE = path.join(PRIVATE, "admin-secret.json");
 const ENQUIRIES_FILE = path.join(PRIVATE, "enquiries.json");
-const DEFAULT_PASSWORD = process.env.ADMIN_PASSWORD || "WanderVista2026!";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const PORT = Number(process.env.PORT) || 3000;
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const MAX_ENQUIRIES = 1000;
 
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
@@ -40,11 +42,14 @@ function loadSecret() {
   ensureDir(path.dirname(SECRET_FILE));
   let secret = readJson(SECRET_FILE, null);
   if (!secret || !secret.cookieSecret || !secret.passwordSalt || !secret.passwordHash) {
+    if (!ADMIN_PASSWORD || ADMIN_PASSWORD.length < 12) {
+      throw new Error("Set ADMIN_PASSWORD to a password of at least 12 characters before starting the server.");
+    }
     const passwordSalt = crypto.randomBytes(16).toString("hex");
     secret = {
       cookieSecret: crypto.randomBytes(32).toString("hex"),
       passwordSalt,
-      passwordHash: hashPassword(DEFAULT_PASSWORD, passwordSalt)
+      passwordHash: hashPassword(ADMIN_PASSWORD, passwordSalt)
     };
     writeJson(SECRET_FILE, secret);
   }
@@ -59,10 +64,37 @@ if (!fs.existsSync(ENQUIRIES_FILE)) writeJson(ENQUIRIES_FILE, []);
 
 const app = express();
 app.disable("x-powered-by");
-app.use(express.json({ limit: "4mb" }));
+app.use(express.json({ limit: "256kb" }));
 app.use(cookieParser(secret.cookieSecret));
+app.use((_req, res, next) => {
+  res.set({
+    "Cache-Control": "no-store",
+    "Content-Security-Policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'self'; img-src 'self' data: https:; media-src 'self' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY"
+  });
+  next();
+});
 app.use("/assets/uploads", express.static(UPLOADS));
 app.use(express.static(PUBLIC));
+
+const requestCounts = new Map();
+function rateLimit(windowMs, max, keyFn = (req) => req.ip) {
+  return (req, res, next) => {
+    const key = keyFn(req);
+    const now = Date.now();
+    const entry = requestCounts.get(key);
+    if (!entry || now - entry.startedAt >= windowMs) {
+      requestCounts.set(key, { startedAt: now, count: 1 });
+      return next();
+    }
+    entry.count += 1;
+    if (entry.count > max) return res.status(429).json({ error: "Too many requests. Try again later." });
+    return next();
+  };
+}
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS),
@@ -93,6 +125,7 @@ function validToken(token) {
   if (parts.length !== 3) return false;
   const [ts, rnd, sig] = parts;
   const expected = crypto.createHmac("sha256", secret.cookieSecret).update(`${ts}.${rnd}`).digest("hex");
+  if (!/^[a-f0-9]{64}$/.test(sig)) return false;
   if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return false;
   const age = Date.now() - Number(ts);
   return age >= 0 && age < 1000 * 60 * 60 * 12;
@@ -103,11 +136,17 @@ function requireAuth(req, res, next) {
   return res.status(401).json({ error: "Please sign in to the admin dashboard." });
 }
 
+function requireCsrf(req, res, next) {
+  const token = req.get("X-CSRF-Token");
+  if (!token || token !== req.cookies.wv_csrf) return res.status(403).json({ error: "Invalid CSRF token." });
+  return next();
+}
+
 function dataPath(name) {
   return path.join(DATA, name);
 }
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", rateLimit(15 * 60 * 1000, 10), (req, res) => {
   const password = String(req.body?.password || "");
   const incoming = hashPassword(password, secret.passwordSalt);
   const ok = incoming.length === secret.passwordHash.length
@@ -117,13 +156,22 @@ app.post("/api/login", (req, res) => {
     httpOnly: true,
     signed: true,
     sameSite: "lax",
+    secure: IS_PRODUCTION,
+    maxAge: 1000 * 60 * 60 * 12
+  });
+  res.cookie("wv_csrf", crypto.randomBytes(24).toString("hex"), {
+    httpOnly: false,
+    signed: false,
+    sameSite: "lax",
+    secure: IS_PRODUCTION,
     maxAge: 1000 * 60 * 60 * 12
   });
   res.json({ ok: true });
 });
 
-app.post("/api/logout", (_req, res) => {
+app.post("/api/logout", requireAuth, requireCsrf, (_req, res) => {
   res.clearCookie("wv_admin");
+  res.clearCookie("wv_csrf");
   res.json({ ok: true });
 });
 
@@ -141,37 +189,37 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.put("/api/tours", requireAuth, (req, res) => {
+app.put("/api/tours", requireAuth, requireCsrf, (req, res) => {
   if (!Array.isArray(req.body)) return res.status(400).json({ error: "Tours must be an array." });
   writeJson(dataPath("tours.json"), req.body);
   res.json({ ok: true, count: req.body.length });
 });
 
-app.put("/api/blog", requireAuth, (req, res) => {
+app.put("/api/blog", requireAuth, requireCsrf, (req, res) => {
   if (!Array.isArray(req.body)) return res.status(400).json({ error: "Posts must be an array." });
   writeJson(dataPath("blog.json"), req.body);
   res.json({ ok: true, count: req.body.length });
 });
 
-app.put("/api/testimonials", requireAuth, (req, res) => {
+app.put("/api/testimonials", requireAuth, requireCsrf, (req, res) => {
   if (!Array.isArray(req.body)) return res.status(400).json({ error: "Testimonials must be an array." });
   writeJson(dataPath("testimonials.json"), req.body);
   res.json({ ok: true, count: req.body.length });
 });
 
-app.put("/api/faqs", requireAuth, (req, res) => {
+app.put("/api/faqs", requireAuth, requireCsrf, (req, res) => {
   if (!Array.isArray(req.body)) return res.status(400).json({ error: "FAQs must be an array." });
   writeJson(dataPath("faqs.json"), req.body);
   res.json({ ok: true, count: req.body.length });
 });
 
-app.put("/api/settings", requireAuth, (req, res) => {
+app.put("/api/settings", requireAuth, requireCsrf, (req, res) => {
   if (!req.body || typeof req.body !== "object") return res.status(400).json({ error: "Invalid settings." });
   writeJson(dataPath("settings.json"), req.body);
   res.json({ ok: true });
 });
 
-app.post("/api/password", requireAuth, (req, res) => {
+app.post("/api/password", requireAuth, requireCsrf, (req, res) => {
   const current = String(req.body?.currentPassword || "");
   const next = String(req.body?.newPassword || "");
   if (next.length < 8) return res.status(400).json({ error: "New password must be at least 8 characters." });
@@ -189,7 +237,7 @@ app.get("/api/enquiries", requireAuth, (_req, res) => {
   res.json(readJson(ENQUIRIES_FILE, []));
 });
 
-app.post("/api/enquiries", (req, res) => {
+app.post("/api/enquiries", rateLimit(15 * 60 * 1000, 20), (req, res) => {
   const body = req.body || {};
   const enquiry = {
     id: `enq-${Date.now()}`,
@@ -210,11 +258,12 @@ app.post("/api/enquiries", (req, res) => {
   }
   const list = readJson(ENQUIRIES_FILE, []);
   list.unshift(enquiry);
+  if (list.length > MAX_ENQUIRIES) list.length = MAX_ENQUIRIES;
   writeJson(ENQUIRIES_FILE, list);
   res.json({ ok: true, id: enquiry.id });
 });
 
-app.patch("/api/enquiries/:id", requireAuth, (req, res) => {
+app.patch("/api/enquiries/:id", requireAuth, requireCsrf, (req, res) => {
   const list = readJson(ENQUIRIES_FILE, []);
   const item = list.find((e) => e.id === req.params.id);
   if (!item) return res.status(404).json({ error: "Lead not found." });
@@ -224,13 +273,13 @@ app.patch("/api/enquiries/:id", requireAuth, (req, res) => {
   res.json({ ok: true, item });
 });
 
-app.delete("/api/enquiries/:id", requireAuth, (req, res) => {
+app.delete("/api/enquiries/:id", requireAuth, requireCsrf, (req, res) => {
   const list = readJson(ENQUIRIES_FILE, []).filter((e) => e.id !== req.params.id);
   writeJson(ENQUIRIES_FILE, list);
   res.json({ ok: true });
 });
 
-app.post("/api/upload", requireAuth, (req, res) => {
+app.post("/api/upload", requireAuth, requireCsrf, (req, res) => {
   upload.single("file")(req, res, (err) => {
     if (err) return res.status(400).json({ error: err.message || "Upload failed." });
     if (!req.file) return res.status(400).json({ error: "No file uploaded." });
@@ -245,5 +294,4 @@ app.get("/admin", (_req, res) => {
 app.listen(PORT, () => {
   console.log(`WanderVista running at http://localhost:${PORT}`);
   console.log(`Admin dashboard: http://localhost:${PORT}/admin`);
-  console.log("Default admin password (change after first login): WanderVista2026!");
 });

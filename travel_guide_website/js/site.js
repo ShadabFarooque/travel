@@ -1,12 +1,12 @@
 import {
   loadSite, qs, waLink, applySeo, injectAnalytics, renderLayout,
-  tourCard, bindFaq, bindGallery, galleryMarkup
+  tourCard, bindFaq, bindGallery, galleryMarkup, escapeHtml, safeUrl, sanitizeHtml
 } from "./core.js";
 
 const page = document.body.dataset.page;
 
 function formHtml(tours, selectedId = "") {
-  const options = tours.map((t) => `<option value="${t.id}" ${t.id === selectedId ? "selected" : ""}>${t.flag || ""} ${t.name}</option>`).join("");
+  const options = tours.map((t) => `<option value="${escapeHtml(t.id)}" ${t.id === selectedId ? "selected" : ""}>${escapeHtml(t.flag || "")} ${escapeHtml(t.name)}</option>`).join("");
   return `<form class="form-card" id="enquiryForm">
     <div class="form-grid">
       <div><label>Name</label><input name="name" required></div>
@@ -69,16 +69,16 @@ if (page === "home") {
   const heroEl = document.querySelector(".hero");
   if (heroEl && hero.image) heroEl.style.setProperty("--hero-image", `url("${hero.image}")`);
   document.getElementById("heroEyebrow").textContent = `✦ ${hero.eyebrow || ""}`;
-  document.getElementById("heroHeading").innerHTML = `${hero.heading || ""}<br><em>${hero.headingEm || ""}</em>`;
+  document.getElementById("heroHeading").innerHTML = `${escapeHtml(hero.heading)}<br><em>${escapeHtml(hero.headingEm)}</em>`;
   document.getElementById("heroText").textContent = hero.text || "";
-  document.getElementById("stats").innerHTML = (settings.stats || []).map((s) => `<div class="stat"><strong>${s.value}</strong><span>${s.label}</span></div>`).join("");
+  document.getElementById("stats").innerHTML = (settings.stats || []).map((s) => `<div class="stat"><strong>${escapeHtml(s.value)}</strong><span>${escapeHtml(s.label)}</span></div>`).join("");
   const up = settings.upcoming || {};
   document.getElementById("upcomingBlock").innerHTML = `
     <div>
-      <div class="tag">${up.tag || ""}</div>
-      <h3>${up.title || ""}</h3>
-      <p>${up.text || ""}</p>
-      <div class="upcoming-list">${(up.pills || []).map((p) => `<div class="pill">${p}</div>`).join("")}</div>
+      <div class="tag">${escapeHtml(up.tag)}</div>
+      <h3>${escapeHtml(up.title)}</h3>
+      <p>${escapeHtml(up.text)}</p>
+      <div class="upcoming-list">${(up.pills || []).map((p) => `<div class="pill">${escapeHtml(p)}</div>`).join("")}</div>
     </div>
     <div style="display:flex;align-items:center;justify-content:center;position:relative;z-index:2">
       <a class="btn primary" href="tour.html?id=${encodeURIComponent(up.ctaTourId || "japan")}">View itinerary</a>
@@ -86,22 +86,22 @@ if (page === "home") {
   document.getElementById("destinationGrid").innerHTML = tours.map(tourCard).join("");
   document.getElementById("videoGrid").innerHTML = (settings.videos || []).map((v) => `
     <article class="video-card">
-      <div class="video-frame"><video class="preview-video" muted playsinline autoplay loop src="${v.src}"></video></div>
-      <div class="video-copy"><h3>${v.title}</h3><p>${v.text}</p></div>
+      <div class="video-frame"><video class="preview-video" muted playsinline autoplay loop src="${escapeHtml(safeUrl(v.src))}"></video></div>
+      <div class="video-copy"><h3>${escapeHtml(v.title)}</h3><p>${escapeHtml(v.text)}</p></div>
     </article>`).join("");
   const about = settings.about || {};
   document.querySelector(".why-image")?.style.setProperty("background-image", `url("${about.image}")`);
   document.getElementById("aboutCopy").innerHTML = `
-    <div class="kicker">${about.kicker || ""}</div>
-    <h2>${about.heading || ""}</h2>
-    <p class="lead">${about.text || ""}</p>
-    <div class="feature-list">${(about.features || []).map((f) => `<div class="feature"><div class="icon">${f.icon}</div><div><h4>${f.title}</h4><p>${f.text}</p></div></div>`).join("")}</div>`;
+    <div class="kicker">${escapeHtml(about.kicker)}</div>
+    <h2>${escapeHtml(about.heading)}</h2>
+    <p class="lead">${escapeHtml(about.text)}</p>
+    <div class="feature-list">${(about.features || []).map((f) => `<div class="feature"><div class="icon">${escapeHtml(f.icon)}</div><div><h4>${escapeHtml(f.title)}</h4><p>${escapeHtml(f.text)}</p></div></div>`).join("")}</div>`;
   document.getElementById("testimonialGrid").innerHTML = testimonials.filter((t) => t.published !== false).map((t) => `
-    <article class="quote"><p>“${t.quote}”</p><b>${t.name}</b><span>${t.role || ""}</span></article>`).join("");
+    <article class="quote"><p>“${escapeHtml(t.quote)}”</p><b>${escapeHtml(t.name)}</b><span>${escapeHtml(t.role)}</span></article>`).join("");
   document.getElementById("blogPreview").innerHTML = blog.filter((p) => p.published !== false).slice(0, 3).map((p) => `
-    <article class="card"><a href="post.html?id=${encodeURIComponent(p.id)}"><div class="dest-cover" style="background-image:url('${p.cover}')"></div></a>
-    <div class="card-body"><h3>${p.title}</h3><p>${p.excerpt}</p><a href="post.html?id=${encodeURIComponent(p.id)}">Read more</a></div></article>`).join("");
-  document.getElementById("faqList").innerHTML = faqs.map((f) => `<div class="faq-item"><div class="faq-question">${f.q} <span>▼</span></div><div class="faq-answer">${f.a}</div></div>`).join("");
+    <article class="card"><a href="post.html?id=${encodeURIComponent(p.id)}"><div class="dest-cover" style="background-image:url('${escapeHtml(safeUrl(p.cover))}')"></div></a>
+    <div class="card-body"><h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.excerpt)}</p><a href="post.html?id=${encodeURIComponent(p.id)}">Read more</a></div></article>`).join("");
+  document.getElementById("faqList").innerHTML = faqs.map((f) => `<div class="faq-item"><div class="faq-question">${escapeHtml(f.q)} <span>▼</span></div><div class="faq-answer">${escapeHtml(f.a)}</div></div>`).join("");
   bindFaq();
   document.getElementById("contactBlock").innerHTML = `
     <div>
@@ -127,13 +127,13 @@ if (page === "tour") {
     applySeo(settings, { title: tour.seoTitle || `${tour.name} | WanderVista`, description: tour.seoDescription || tour.description, ogImage: tour.hero });
     document.getElementById("tourMain").innerHTML = `
       <div class="tour-hero-img" style="background-image:url('${tour.hero}')"></div>
-      <div class="kicker">${tour.region}</div>
-      <h1>${tour.flag || ""} ${tour.name}</h1>
-      <p class="lead">${tour.description}</p>
-      <p>${tour.duration ? `<b>Duration:</b> ${tour.duration}` : ""} ${tour.priceFrom ? ` · <b>From:</b> ${tour.priceFrom}` : ""}</p>
-      <div class="attractions" style="margin:18px 0">${(tour.sights || []).map((s) => `<span class="chip">${s}</span>`).join("")}</div>
-      <div class="gallery">${(tour.gallery?.length ? tour.gallery : [tour.hero]).map((src) => `<img src="${src}" alt="${tour.name}">`).join("")}</div>
-      ${tour.itinerary?.length ? `<div class="itinerary"><h2>Itinerary</h2><table class="itinerary-table"><thead><tr><td>Day</td><td>City</td><td>Highlights</td><td>Night</td></tr></thead><tbody>${tour.itinerary.map((it) => `<tr><td>Day ${it.day}</td><td>${it.city}</td><td>${it.highlights}</td><td>${it.night}</td></tr>`).join("")}</tbody></table></div>` : ""}
+      <div class="kicker">${escapeHtml(tour.region)}</div>
+      <h1>${escapeHtml(tour.flag || "")} ${escapeHtml(tour.name)}</h1>
+      <p class="lead">${escapeHtml(tour.description)}</p>
+      <p>${tour.duration ? `<b>Duration:</b> ${escapeHtml(tour.duration)}` : ""} ${tour.priceFrom ? ` · <b>From:</b> ${escapeHtml(tour.priceFrom)}` : ""}</p>
+      <div class="attractions" style="margin:18px 0">${(tour.sights || []).map((s) => `<span class="chip">${escapeHtml(s)}</span>`).join("")}</div>
+      <div class="gallery">${(tour.gallery?.length ? tour.gallery : [tour.hero]).map((src) => `<img src="${escapeHtml(safeUrl(src))}" alt="${escapeHtml(tour.name)}">`).join("")}</div>
+      ${tour.itinerary?.length ? `<div class="itinerary"><h2>Itinerary</h2><table class="itinerary-table"><thead><tr><td>Day</td><td>City</td><td>Highlights</td><td>Night</td></tr></thead><tbody>${tour.itinerary.map((it) => `<tr><td>Day ${escapeHtml(it.day)}</td><td>${escapeHtml(it.city)}</td><td>${escapeHtml(it.highlights)}</td><td>${escapeHtml(it.night)}</td></tr>`).join("")}</tbody></table></div>` : ""}
       <div style="margin-top:28px">${formHtml(tours, tour.id)}</div>`;
     bindEnquiry(settings, tours);
   }
@@ -141,8 +141,8 @@ if (page === "tour") {
 
 if (page === "blog") {
   document.getElementById("blogGrid").innerHTML = blog.filter((p) => p.published !== false).map((p) => `
-    <article class="card"><a href="post.html?id=${encodeURIComponent(p.id)}"><div class="dest-cover" style="background-image:url('${p.cover}')"></div></a>
-    <div class="card-body"><div class="kicker">${p.date || ""}</div><h3>${p.title}</h3><p>${p.excerpt}</p></div></article>`).join("");
+    <article class="card"><a href="post.html?id=${encodeURIComponent(p.id)}"><div class="dest-cover" style="background-image:url('${escapeHtml(safeUrl(p.cover))}')"></div></a>
+    <div class="card-body"><div class="kicker">${escapeHtml(p.date)}</div><h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.excerpt)}</p></div></article>`).join("");
 }
 
 if (page === "post") {
@@ -150,10 +150,10 @@ if (page === "post") {
   if (post) {
     applySeo(settings, { title: post.seoTitle || post.title, description: post.seoDescription || post.excerpt, ogImage: post.cover });
     document.getElementById("postMain").innerHTML = `
-      <div class="kicker">${post.date || ""} · ${post.author || ""}</div>
-      <h1>${post.title}</h1>
-      ${post.cover ? `<div class="tour-hero-img" style="background-image:url('${post.cover}')"></div>` : ""}
-      <div class="prose">${post.body || ""}</div>`;
+      <div class="kicker">${escapeHtml(post.date)} · ${escapeHtml(post.author)}</div>
+      <h1>${escapeHtml(post.title)}</h1>
+      ${post.cover ? `<div class="tour-hero-img" style="background-image:url('${escapeHtml(safeUrl(post.cover))}')"></div>` : ""}
+      <div class="prose">${sanitizeHtml(post.body)}</div>`;
   }
 }
 

@@ -1,5 +1,31 @@
 const DATA_BASE = new URL("../data/", import.meta.url).href;
 
+export function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
+export function safeUrl(value) {
+  const url = String(value || "").trim();
+  if (/['"<>`\\\r\n]/.test(url)) return "";
+  if (/^(https?:\/\/|\/|assets\/|\.\.\/)/i.test(url)) return url;
+  return "";
+}
+
+export function sanitizeHtml(value) {
+  const template = document.createElement("template");
+  template.innerHTML = String(value || "");
+  template.content.querySelectorAll("script,style,iframe,object,embed,form").forEach((node) => node.remove());
+  template.content.querySelectorAll("*").forEach((node) => {
+    [...node.attributes].forEach((attribute) => {
+      if (/^on/i.test(attribute.name)) node.removeAttribute(attribute.name);
+      if (["href", "src", "action"].includes(attribute.name) && !/^(https?:\/\/|\/|assets\/|\.\.\/|#)/i.test(attribute.value.trim())) node.removeAttribute(attribute.name);
+    });
+  });
+  return template.innerHTML;
+}
+
 export async function loadJson(name, fallback) {
   try {
     const res = await fetch(`${DATA_BASE}${name}?v=${Date.now()}`, { cache: "no-store" });
@@ -66,17 +92,19 @@ export function injectAnalytics(id) {
 }
 
 export function renderLayout(settings) {
+  const brand = escapeHtml(settings.brand || "Wander");
+  const whatsapp = escapeHtml(waLink(settings));
   const nav = document.getElementById("nav");
   if (nav) {
     nav.innerHTML = `<div class="container nav-inner">
-      <a class="logo" href="index.html">${settings.brand || "Wander"}<span>Vista</span></a>
+      <a class="logo" href="index.html">${brand}<span>Vista</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
       <div class="nav-links" id="navLinks">
         <a href="tours.html">Tours</a>
         <a href="blog.html">Blog</a>
         <a href="enquire.html">Enquire</a>
         <a href="index.html#faq">FAQ</a>
-        <a href="${waLink(settings)}" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="${whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
       </div>
       <a class="cta" href="enquire.html">Book / Enquire</a>
     </div>`;
@@ -86,7 +114,7 @@ export function renderLayout(settings) {
   }
   const footer = document.getElementById("site-footer");
   if (footer) {
-    footer.innerHTML = `<div class="container">© ${new Date().getFullYear()} ${settings.brand || "WanderVista"} Group Tours · International group travel</div>`;
+    footer.innerHTML = `<div class="container">© ${new Date().getFullYear()} ${escapeHtml(settings.brand || "WanderVista")} Group Tours · International group travel</div>`;
   }
   if (!document.getElementById("org-ld")) {
     const ld = document.createElement("script");
@@ -116,24 +144,26 @@ export function renderLayout(settings) {
 
 export function tourCard(tour) {
   const gallery = (tour.gallery && tour.gallery.length) ? tour.gallery : [tour.hero].filter(Boolean);
-  const rows = (tour.itinerary || []).map((it) => `<tr><td>Day ${it.day}</td><td>${it.city}</td><td>${it.highlights}</td><td>${it.night}</td></tr>`).join("");
+  const rows = (tour.itinerary || []).map((it) => `<tr><td>Day ${escapeHtml(it.day)}</td><td>${escapeHtml(it.city)}</td><td>${escapeHtml(it.highlights)}</td><td>${escapeHtml(it.night)}</td></tr>`).join("");
   const itineraryHTML = rows ? `<div class="itinerary"><h4>Itinerary</h4><table class="itinerary-table"><tbody>${rows}</tbody></table></div>` : "";
-  const videoHTML = tour.video ? `<div class="video-preview" data-video-src="${tour.video}"><video muted playsinline preload="metadata"><source src="${tour.video}" type="video/mp4"></video></div>` : "";
-  return `<article class="destination" data-tour-id="${tour.id}">
+  const video = safeUrl(tour.video);
+  const hero = escapeHtml(safeUrl(tour.hero));
+  const videoHTML = video ? `<div class="video-preview" data-video-src="${escapeHtml(video)}"><video muted playsinline preload="metadata"><source src="${escapeHtml(video)}" type="video/mp4"></video></div>` : "";
+  return `<article class="destination" data-tour-id="${escapeHtml(tour.id)}">
     <a href="tour.html?id=${encodeURIComponent(tour.id)}">
-      <div class="dest-cover" style="background-image:url('${tour.hero}')">
-        <img class="cover-img" src="${tour.hero}" alt="${tour.name}">
+      <div class="dest-cover" style="background-image:url('${hero}')">
+        <img class="cover-img" src="${hero}" alt="${escapeHtml(tour.name)}">
         <span class="badge">${tour.status === "upcoming" ? "UPCOMING" : "GROUP TOURED"}</span>
-        <div class="dest-title"><h3>${tour.flag || ""} ${tour.name}</h3><span>${tour.region || ""}</span></div>
+        <div class="dest-title"><h3>${escapeHtml(tour.flag || "")} ${escapeHtml(tour.name)}</h3><span>${escapeHtml(tour.region || "")}</span></div>
       </div>
     </a>
     <div class="dest-body">
-      <p>${tour.description || ""}</p>
-      <div class="explore"><a href="tour.html?id=${encodeURIComponent(tour.id)}">View ${tour.name}</a><button class="toggle" type="button">＋</button></div>
+      <p>${escapeHtml(tour.description)}</p>
+      <div class="explore"><a href="tour.html?id=${encodeURIComponent(tour.id)}">View ${escapeHtml(tour.name)}</a><button class="toggle" type="button">＋</button></div>
       <div class="details">
         ${videoHTML}
-        <div class="gallery">${gallery.map((src) => `<img loading="lazy" src="${src}" alt="${tour.name}">`).join("")}</div>
-        <div class="attractions">${(tour.sights || []).map((s) => `<span class="chip">${s}</span>`).join("")}</div>
+        <div class="gallery">${gallery.map((src) => `<img loading="lazy" src="${escapeHtml(safeUrl(src))}" alt="${escapeHtml(tour.name)}">`).join("")}</div>
+        <div class="attractions">${(tour.sights || []).map((s) => `<span class="chip">${escapeHtml(s)}</span>`).join("")}</div>
         ${itineraryHTML}
       </div>
     </div>

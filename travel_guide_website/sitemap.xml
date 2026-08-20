@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>/index.html</loc></url>
-  <url><loc>/tours.html</loc></url>
-  <url><loc>/blog.html</loc></url>
-  <url><loc>/enquire.html</loc></url>
+  <url><loc>/travel_guide_website/</loc></url>
+  <url><loc>/travel_guide_website/tours.html</loc></url>
+  <url><loc>/travel_guide_website/blog.html</loc></url>
+  <url><loc>/travel_guide_website/enquire.html</loc></url>
 </urlset>

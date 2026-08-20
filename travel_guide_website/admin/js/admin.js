@@ -12,6 +12,16 @@ const state = {
 const viewEl = document.getElementById("view");
 const toast = document.getElementById("toast");
 
+function csrfToken() {
+  return document.cookie.split("; ").find((part) => part.startsWith("wv_csrf="))?.split("=")[1] || "";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
 function showToast(msg) {
   toast.textContent = msg;
   toast.style.display = "block";
@@ -21,7 +31,7 @@ function showToast(msg) {
 async function api(path, options = {}) {
   const res = await fetch(path, {
     credentials: "same-origin",
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+    headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken(), ...(options.headers || {}) },
     ...options
   });
   const data = await res.json().catch(() => ({}));
@@ -73,7 +83,7 @@ function renderOverview() {
     <div class="panel">
       <h3>Recent leads</h3>
       <table><thead><tr><th>When</th><th>Name</th><th>Tour</th><th>Status</th></tr></thead>
-      <tbody>${state.leads.slice(0, 8).map((l) => `<tr><td>${(l.createdAt || "").slice(0, 16).replace("T", " ")}</td><td>${l.name}</td><td>${l.tourName || "-"}</td><td>${l.status}</td></tr>`).join("") || `<tr><td colspan="4">No leads yet.</td></tr>`}</tbody></table>
+      <tbody>${state.leads.slice(0, 8).map((l) => `<tr><td>${escapeHtml((l.createdAt || "").slice(0, 16).replace("T", " "))}</td><td>${escapeHtml(l.name)}</td><td>${escapeHtml(l.tourName || "-")}</td><td>${escapeHtml(l.status)}</td></tr>`).join("") || `<tr><td colspan="4">No leads yet.</td></tr>`}</tbody></table>
     </div>`;
 }
 
@@ -87,16 +97,16 @@ function renderTours() {
         <thead><tr><th>Name</th><th>Region</th><th>Status</th><th>Duration</th><th></th></tr></thead>
         <tbody>
           ${state.tours.map((t, i) => `<tr>
-            <td><input data-t="${i}" data-k="name" value="${t.name || ""}"></td>
-            <td><input data-t="${i}" data-k="region" value="${t.region || ""}"></td>
+            <td><input data-t="${i}" data-k="name" value="${escapeHtml(t.name)}"></td>
+            <td><input data-t="${i}" data-k="region" value="${escapeHtml(t.region)}"></td>
             <td>
               <select data-t="${i}" data-k="status">
                 <option value="completed" ${t.status === "completed" ? "selected" : ""}>Completed</option>
                 <option value="upcoming" ${t.status === "upcoming" ? "selected" : ""}>Upcoming</option>
               </select>
             </td>
-            <td><input data-t="${i}" data-k="duration" value="${t.duration || ""}"></td>
-            <td><button class="btn ghost" data-edit="${t.id}">Edit</button> <button class="btn warn" data-del="${i}">Delete</button></td>
+            <td><input data-t="${i}" data-k="duration" value="${escapeHtml(t.duration)}"></td>
+            <td><button class="btn ghost" data-edit="${escapeHtml(t.id)}">Edit</button> <button class="btn warn" data-del="${i}">Delete</button></td>
           </tr>`).join("")}
         </tbody>
       </table>
@@ -124,17 +134,17 @@ function renderTourEditor() {
   const box = document.getElementById("tourEditor");
   if (!box || !tour) { if (box) box.innerHTML = "<p>Add a tour to begin.</p>"; return; }
   box.innerHTML = `
-    <h3>Edit ${tour.name}</h3>
+    <h3>Edit ${escapeHtml(tour.name)}</h3>
     <div class="grid2">
-      <div><label>ID / slug</label><input id="t-id" value="${tour.id}"></div>
-      <div><label>Flag emoji</label><input id="t-flag" value="${tour.flag || ""}"></div>
-      <div class="full" style="grid-column:1/-1"><label>Description</label><textarea id="t-desc">${tour.description || ""}</textarea></div>
-      <div><label>Cover image URL</label><input id="t-hero" value="${tour.hero || ""}"></div>
-      <div><label>Video URL</label><input id="t-video" value="${tour.video || ""}"></div>
-      <div><label>Price from</label><input id="t-price" value="${tour.priceFrom || ""}"></div>
-      <div><label>Highlights (comma separated)</label><input id="t-sights" value="${(tour.sights || []).join(", ")}"></div>
-      <div><label>SEO title</label><input id="t-seot" value="${tour.seoTitle || ""}"></div>
-      <div><label>SEO description</label><input id="t-seod" value="${tour.seoDescription || ""}"></div>
+      <div><label>ID / slug</label><input id="t-id" value="${escapeHtml(tour.id)}"></div>
+      <div><label>Flag emoji</label><input id="t-flag" value="${escapeHtml(tour.flag)}"></div>
+      <div class="full" style="grid-column:1/-1"><label>Description</label><textarea id="t-desc">${escapeHtml(tour.description)}</textarea></div>
+      <div><label>Cover image URL</label><input id="t-hero" value="${escapeHtml(tour.hero)}"></div>
+      <div><label>Video URL</label><input id="t-video" value="${escapeHtml(tour.video)}"></div>
+      <div><label>Price from</label><input id="t-price" value="${escapeHtml(tour.priceFrom)}"></div>
+      <div><label>Highlights (comma separated)</label><input id="t-sights" value="${escapeHtml((tour.sights || []).join(", "))}"></div>
+      <div><label>SEO title</label><input id="t-seot" value="${escapeHtml(tour.seoTitle)}"></div>
+      <div><label>SEO description</label><input id="t-seod" value="${escapeHtml(tour.seoDescription)}"></div>
     </div>`;
   const bind = (id, fn) => { const el = document.getElementById(id); if (el) el.oninput = () => fn(el.value); };
   bind("t-id", (v) => { tour.id = slugify(v); state.selectedTour = tour.id; });
@@ -150,7 +160,7 @@ function renderTourEditor() {
 
 function tourSelect() {
   if (!state.selectedTour && state.tours[0]) state.selectedTour = state.tours[0].id;
-  return `<label>Tour</label><select id="tourPick">${state.tours.map((t) => `<option value="${t.id}" ${t.id === state.selectedTour ? "selected" : ""}>${t.name}</option>`).join("")}</select>`;
+  return `<label>Tour</label><select id="tourPick">${state.tours.map((t) => `<option value="${escapeHtml(t.id)}" ${t.id === state.selectedTour ? "selected" : ""}>${escapeHtml(t.name)}</option>`).join("")}</select>`;
 }
 
 function renderPhotos() {
@@ -171,7 +181,7 @@ function renderPhotos() {
   const draw = () => {
     document.getElementById("photoList").innerHTML = (tour?.gallery || []).map((src, i) => `
       <div class="ph"><img src="${photoSrc(src)}" alt=""><div>
-        <small>${src}</small><br>
+        <small>${escapeHtml(src)}</small><br>
         <button class="btn ghost" data-up="${i}">Up</button>
         <button class="btn ghost" data-dn="${i}">Down</button>
         <button class="btn warn" data-rm="${i}">Remove</button>
@@ -196,7 +206,7 @@ function renderPhotos() {
       if (!file) return showToast("Choose a file first.");
       const body = new FormData();
       body.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body, credentials: "same-origin" });
+      const res = await fetch("/api/upload", { method: "POST", body, credentials: "same-origin", headers: { "X-CSRF-Token": csrfToken() } });
       const data = await res.json();
       if (!res.ok) return showToast(data.error || "Upload failed");
       tour.gallery.push(data.url);
@@ -220,10 +230,10 @@ function renderItinerary() {
     if (!tour) return;
     tour.itinerary = tour.itinerary || [];
     document.getElementById("itinBody").innerHTML = tour.itinerary.map((d, i) => `<tr>
-      <td><input data-i="${i}" data-k="day" value="${d.day || i + 1}"></td>
-      <td><input data-i="${i}" data-k="city" value="${d.city || ""}"></td>
-      <td><input data-i="${i}" data-k="highlights" value="${d.highlights || ""}"></td>
-      <td><input data-i="${i}" data-k="night" value="${d.night || ""}"></td>
+      <td><input data-i="${i}" data-k="day" value="${escapeHtml(d.day || i + 1)}"></td>
+      <td><input data-i="${i}" data-k="city" value="${escapeHtml(d.city)}"></td>
+      <td><input data-i="${i}" data-k="highlights" value="${escapeHtml(d.highlights)}"></td>
+      <td><input data-i="${i}" data-k="night" value="${escapeHtml(d.night)}"></td>
       <td><button class="btn warn" data-rm="${i}">Remove</button></td>
     </tr>`).join("");
     document.querySelectorAll("[data-i]").forEach((el) => {
@@ -245,11 +255,11 @@ function renderLeads() {
     <table>
       <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Tour</th><th>Message</th><th>Status</th><th></th></tr></thead>
       <tbody>${state.leads.map((l) => `<tr>
-        <td>${(l.createdAt || "").slice(0, 16).replace("T", " ")}</td>
-        <td>${l.name}<br><small>${l.email || ""}</small></td>
-        <td><a href="https://wa.me/${String(l.phone || "").replace(/\D/g, "")}" target="_blank" rel="noopener">${l.phone}</a></td>
-        <td>${l.tourName || "-"}<br><small>${l.type || "enquiry"} · ${l.travellers || ""} · ${l.travelDate || ""}</small></td>
-        <td>${l.message || ""}</td>
+        <td>${escapeHtml((l.createdAt || "").slice(0, 16).replace("T", " "))}</td>
+        <td>${escapeHtml(l.name)}<br><small>${escapeHtml(l.email)}</small></td>
+        <td><a href="https://wa.me/${String(l.phone || "").replace(/\D/g, "")}" target="_blank" rel="noopener">${escapeHtml(l.phone)}</a></td>
+        <td>${escapeHtml(l.tourName || "-")}<br><small>${escapeHtml(l.type || "enquiry")} · ${escapeHtml(l.travellers)} · ${escapeHtml(l.travelDate)}</small></td>
+        <td>${escapeHtml(l.message)}</td>
         <td>
           <select data-st="${l.id}">
             <option ${l.status === "new" ? "selected" : ""}>new</option>
@@ -258,7 +268,7 @@ function renderLeads() {
             <option ${l.status === "closed" ? "selected" : ""}>closed</option>
           </select>
         </td>
-        <td><button class="btn warn" data-del="${l.id}">Delete</button></td>
+        <td><button class="btn warn" data-del="${escapeHtml(l.id)}">Delete</button></td>
       </tr>`).join("") || `<tr><td colspan="7">No leads yet. Use the public enquire form while this server is running.</td></tr>`}</tbody>
     </table>
   </div>`;
@@ -283,12 +293,12 @@ function renderBlog() {
   viewEl.innerHTML = `<button class="btn" id="addPost">Add post</button>
     ${state.blog.map((p, i) => `<div class="panel">
       <div class="grid2">
-        <div><label>Title</label><input data-b="${i}" data-k="title" value="${p.title || ""}"></div>
-        <div><label>Date</label><input data-b="${i}" data-k="date" value="${p.date || ""}"></div>
-        <div><label>Cover URL</label><input data-b="${i}" data-k="cover" value="${p.cover || ""}"></div>
-        <div><label>SEO title</label><input data-b="${i}" data-k="seoTitle" value="${p.seoTitle || ""}"></div>
-        <div style="grid-column:1/-1"><label>Excerpt</label><input data-b="${i}" data-k="excerpt" value="${p.excerpt || ""}"></div>
-        <div style="grid-column:1/-1"><label>Body HTML</label><textarea data-b="${i}" data-k="body">${p.body || ""}</textarea></div>
+        <div><label>Title</label><input data-b="${i}" data-k="title" value="${escapeHtml(p.title)}"></div>
+        <div><label>Date</label><input data-b="${i}" data-k="date" value="${escapeHtml(p.date)}"></div>
+        <div><label>Cover URL</label><input data-b="${i}" data-k="cover" value="${escapeHtml(p.cover)}"></div>
+        <div><label>SEO title</label><input data-b="${i}" data-k="seoTitle" value="${escapeHtml(p.seoTitle)}"></div>
+        <div style="grid-column:1/-1"><label>Excerpt</label><input data-b="${i}" data-k="excerpt" value="${escapeHtml(p.excerpt)}"></div>
+        <div style="grid-column:1/-1"><label>Body HTML</label><textarea data-b="${i}" data-k="body">${escapeHtml(p.body)}</textarea></div>
       </div>
       <label><input type="checkbox" data-pub="${i}" ${p.published !== false ? "checked" : ""}> Published</label>
       <button class="btn warn" data-del="${i}">Delete post</button>
@@ -314,9 +324,9 @@ function renderBlog() {
 function renderTestimonials() {
   viewEl.innerHTML = `<button class="btn" id="addT">Add testimonial</button>
     ${state.testimonials.map((t, i) => `<div class="panel grid2">
-      <div><label>Name</label><input data-x="${i}" data-k="name" value="${t.name || ""}"></div>
-      <div><label>Role</label><input data-x="${i}" data-k="role" value="${t.role || ""}"></div>
-      <div style="grid-column:1/-1"><label>Quote</label><textarea data-x="${i}" data-k="quote">${t.quote || ""}</textarea></div>
+      <div><label>Name</label><input data-x="${i}" data-k="name" value="${escapeHtml(t.name)}"></div>
+      <div><label>Role</label><input data-x="${i}" data-k="role" value="${escapeHtml(t.role)}"></div>
+      <div style="grid-column:1/-1"><label>Quote</label><textarea data-x="${i}" data-k="quote">${escapeHtml(t.quote)}</textarea></div>
       <button class="btn warn" data-del="${i}">Delete</button>
     </div>`).join("")}`;
   document.getElementById("addT").onclick = () => {
@@ -330,8 +340,8 @@ function renderTestimonials() {
 function renderFaqs() {
   viewEl.innerHTML = `<button class="btn" id="addF">Add FAQ</button>
     ${state.faqs.map((f, i) => `<div class="panel">
-      <label>Question</label><input data-f="${i}" data-k="q" value="${f.q || ""}">
-      <label>Answer</label><textarea data-f="${i}" data-k="a">${f.a || ""}</textarea>
+      <label>Question</label><input data-f="${i}" data-k="q" value="${escapeHtml(f.q)}">
+      <label>Answer</label><textarea data-f="${i}" data-k="a">${escapeHtml(f.a)}</textarea>
       <button class="btn warn" data-del="${i}">Delete</button>
     </div>`).join("")}`;
   document.getElementById("addF").onclick = () => { state.faqs.push({ q: "", a: "" }); render(); };
@@ -346,23 +356,23 @@ function renderSeo() {
   viewEl.innerHTML = `<div class="panel">
     <h3>Google Analytics (GA4)</h3>
     <label>Measurement ID</label>
-    <input id="gaId" value="${s.gaMeasurementId || ""}" placeholder="G-XXXXXXXX">
+    <input id="gaId" value="${escapeHtml(s.gaMeasurementId)}" placeholder="G-XXXXXXXX">
     <p class="muted">Paste your GA4 ID. It is injected on every public page after you save.</p>
   </div>
   <div class="panel">
     <h3>Default SEO</h3>
-    <label>Site title</label><input id="seoTitle" value="${s.seo.title || ""}">
-    <label>Meta description</label><textarea id="seoDesc">${s.seo.description || ""}</textarea>
-    <label>Keywords</label><input id="seoKeys" value="${s.seo.keywords || ""}">
-    <label>Share image URL</label><input id="seoOg" value="${s.seo.ogImage || ""}">
+    <label>Site title</label><input id="seoTitle" value="${escapeHtml(s.seo.title)}">
+    <label>Meta description</label><textarea id="seoDesc">${escapeHtml(s.seo.description)}</textarea>
+    <label>Keywords</label><input id="seoKeys" value="${escapeHtml(s.seo.keywords)}">
+    <label>Share image URL</label><input id="seoOg" value="${escapeHtml(s.seo.ogImage)}">
   </div>
   <div class="panel">
     <h3>Homepage hero</h3>
-    <label>Eyebrow</label><input id="heroEy" value="${s.hero.eyebrow || ""}">
-    <label>Heading</label><input id="heroH" value="${s.hero.heading || ""}">
-    <label>Emphasis line</label><input id="heroE" value="${s.hero.headingEm || ""}">
-    <label>Intro text</label><textarea id="heroT">${s.hero.text || ""}</textarea>
-    <label>Hero image URL</label><input id="heroI" value="${s.hero.image || ""}">
+    <label>Eyebrow</label><input id="heroEy" value="${escapeHtml(s.hero.eyebrow)}">
+    <label>Heading</label><input id="heroH" value="${escapeHtml(s.hero.heading)}">
+    <label>Emphasis line</label><input id="heroE" value="${escapeHtml(s.hero.headingEm)}">
+    <label>Intro text</label><textarea id="heroT">${escapeHtml(s.hero.text)}</textarea>
+    <label>Hero image URL</label><input id="heroI" value="${escapeHtml(s.hero.image)}">
   </div>`;
   const map = [
     ["gaId", (v) => { s.gaMeasurementId = v; }],
@@ -382,11 +392,11 @@ function renderSeo() {
 function renderSettings() {
   const s = state.settings;
   viewEl.innerHTML = `<div class="panel">
-    <label>Brand</label><input id="brand" value="${s.brand || ""}">
-    <label>Phone</label><input id="phone" value="${s.phone || ""}">
-    <label>WhatsApp number with country code</label><input id="phoneIntl" value="${s.phoneIntl || ""}">
-    <label>Email</label><input id="email" value="${s.email || ""}">
-    <label>Default WhatsApp message</label><textarea id="wa">${s.whatsappMessage || ""}</textarea>
+    <label>Brand</label><input id="brand" value="${escapeHtml(s.brand)}">
+    <label>Phone</label><input id="phone" value="${escapeHtml(s.phone)}">
+    <label>WhatsApp number with country code</label><input id="phoneIntl" value="${escapeHtml(s.phoneIntl)}">
+    <label>Email</label><input id="email" value="${escapeHtml(s.email)}">
+    <label>Default WhatsApp message</label><textarea id="wa">${escapeHtml(s.whatsappMessage)}</textarea>
   </div>
   <div class="panel">
     <h3>Change admin password</h3>
