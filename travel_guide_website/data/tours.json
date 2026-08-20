@@ -245,21 +245,23 @@
     "status": "upcoming",
     "hero": "https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp",
     "description": "A cinematic Japan escape blending Tokyo energy, timeless temples, food streets and unforgettable city nights.",
-    "sights": ["Tokyo", "Mount Fuji", "Kyoto"],
+    "sights": ["Tokyo", "Osaka", "Kyoto","Hiroshima"],
     "gallery": [],
     "video": "",
-    "priceFrom": "",
-    "duration": "7 days",
+    "priceFrom": "3.9 Lakhs",
+    "duration": "9 days",
     "seoTitle": "Japan Group Tour 2026 | WanderVista",
     "seoDescription": "Upcoming Japan group tour: Tokyo, Kyoto, Hiroshima and Osaka with a day-by-day itinerary.",
     "itinerary": [
-      { "day": "1", "city": "Tokyo", "highlights": "Asakusa, Senso-ji, Tokyo Skytree, Akihabara", "night": "Tokyo" },
-      { "day": "2", "city": "Tokyo", "highlights": "Meiji Shrine, Harajuku, Shibuya, Shinjuku", "night": "Tokyo" },
-      { "day": "3", "city": "Kyoto", "highlights": "Fushimi Inari, Kiyomizu-dera, Gion, Nishiki Market", "night": "Kyoto" },
-      { "day": "4", "city": "Kyoto", "highlights": "Arashiyama, Kinkaku-ji, Nijo Castle, Pontocho", "night": "Kyoto" },
-      { "day": "5", "city": "Hiroshima", "highlights": "Peace Memorial Park, Atomic Bomb Dome, Miyajima", "night": "Hiroshima" },
-      { "day": "6", "city": "Osaka", "highlights": "Osaka Castle, Shinsekai, Kuromon, Dotonbori", "night": "Osaka" },
-      { "day": "7", "city": "Osaka", "highlights": "Umeda, Namba, Shinsaibashi, shopping & departure", "night": "Osaka" }
+      { "day": "1", "city": "Tokyo", "highlights": "Arrival, Shibuya Crossing → Hachiko → Center-gai → Cat Street → Takeshita Street → Meiji Jingu → Yoyogi Park → Omotesando", "night": "Tokyo" },
+      { "day": "2", "city": "Tokyo", "highlights": "1st Half - Asakusa : Senso-ji → Nakamise → Asakusa Shrine → Sumida Park → Tokyo Skytree, 2nd Half : Ueno Park → Tokyo National Museum → Ameyoko → Okachimachi → Akihabara → Kanda Myojin", "night": "Tokyo" },
+      { "day": "3", "city": "Tokyo", "highlights": "Tokyo Tower → Zojoji → Shiba Park → Tsukiji Outer Market → Odaiba ", "night": "Tokyo" },
+      { "day": "4", "city": "Tokyo", "highlights": "Mount Fiji Full day Trip (Includes Mt. Fuji 5th Station, Lake Kawaguchi, Oishi Park, Chureito Pagoda, Saiko Iyashi-no-Sato Nenba, Kitaguchi-hongu Fuji Sengen Shrine, Mt. Fuji Panoramic Ropeway, Shimoyoshida Honcho Street, Oshino Hakkai, Hakone Open-Air Museum and Gotemba Premium Outlets) ", "night": "Tokyo" },
+      { "day": "5", "city": "Osaka", "highlights": "Fushimi Inari, Kiyomizu-dera, Gion, Nishiki Market", "night": "Osaka" },
+      { "day": "6", "city": "Kyoto", "highlights": "Arashiyama Bamboo Forest,Kinkaku-ji,Ginkaku-ji Temple, Nishiki Market , Kiyomizu-dera , Nijo Castle, Gion Corner , Fushimi Inari Taisha", "night": "Osaka" },
+      { "day": "7", "city": "Hiroshima", "highlights": "Peace Memorial Park, Atomic Bomb Dome, Miyajima", "night": "Hiroshima" },
+      { "day": "8", "city": "Osaka", "highlights": "Osaka Castle, Shinsekai, Kuromon, Dotonbori", "night": "Osaka" },
+      { "day": "9", "city": "Osaka", "highlights": "Umeda, Namba, Shinsaibashi, shopping & departure", "night": "Osaka" }
     ]
   },
   {
