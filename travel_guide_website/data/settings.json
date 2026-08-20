@@ -22,16 +22,33 @@
     "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d7?w=2200&q=90"
   },
   "stats": [
-    { "value": "15", "label": "International destinations" },
-    { "value": "13+", "label": "Countries already toured" },
-    { "value": "1", "label": "Upcoming Japan + Korea journey" },
-    { "value": "100%", "label": "Group-focused experience" }
+    {
+      "value": "15",
+      "label": "International destinations"
+    },
+    {
+      "value": "13+",
+      "label": "Countries already toured"
+    },
+    {
+      "value": "1",
+      "label": "Upcoming Japan + Korea journey"
+    },
+    {
+      "value": "100%",
+      "label": "Group-focused experience"
+    }
   ],
   "upcoming": {
     "tag": "Next adventure · 2026",
     "title": "Japan + South Korea",
     "text": "A cinematic East Asia escape blending Tokyo energy, timeless temples, Japanese culture, Korean heritage, street food and unforgettable city nights.",
-    "pills": ["🇯🇵 Tokyo · Mount Fuji", "🇯🇵 Kyoto · Osaka", "🇰🇷 Seoul · Gyeongbokgung", "🇰🇷 N Seoul Tower · Markets"],
+    "pills": [
+      "🇯🇵 Tokyo · Mount Fuji",
+      "🇯🇵 Kyoto · Osaka",
+      "🇰🇷 Seoul · Gyeongbokgung",
+      "🇰🇷 N Seoul Tower · Markets"
+    ],
     "ctaTourId": "japan"
   },
   "videos": [
@@ -52,9 +69,21 @@
     "text": "The best group tours are not about ticking boxes. They're about moving smoothly, discovering the right places at the right time, and coming home with stories worth retelling.",
     "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1600&q=85",
     "features": [
-      { "icon": "🧭", "title": "Guided with purpose", "text": "Thoughtful routes, practical coordination and local highlights built around the group." },
-      { "icon": "🤝", "title": "Group-first experience", "text": "A friendly travel environment designed for families, friends and first-time international travellers." },
-      { "icon": "📸", "title": "Made for memories", "text": "Iconic viewpoints, culture, food and photo moments are woven into every journey." }
+      {
+        "icon": "🧭",
+        "title": "Guided with purpose",
+        "text": "Thoughtful routes, practical coordination and local highlights built around the group."
+      },
+      {
+        "icon": "🤝",
+        "title": "Group-first experience",
+        "text": "A friendly travel environment designed for families, friends and first-time international travellers."
+      },
+      {
+        "icon": "📸",
+        "title": "Made for memories",
+        "text": "Iconic viewpoints, culture, food and photo moments are woven into every journey."
+      }
     ]
   }
 }

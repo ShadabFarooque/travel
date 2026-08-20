@@ -179,6 +179,18 @@ app.get("/api/session", (req, res) => {
   res.json({ authenticated: validToken(req.signedCookies.wv_admin) });
 });
 
+app.get("/api/csrf", requireAuth, (_req, res) => {
+  const token = crypto.randomBytes(24).toString("hex");
+  res.cookie("wv_csrf", token, {
+    httpOnly: false,
+    signed: false,
+    sameSite: "lax",
+    secure: IS_PRODUCTION,
+    maxAge: 1000 * 60 * 60 * 12
+  });
+  res.json({ token });
+});
+
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, mode: "admin-server" });
 });

@@ -13,7 +13,8 @@ const viewEl = document.getElementById("view");
 const toast = document.getElementById("toast");
 
 function csrfToken() {
-  return document.cookie.split("; ").find((part) => part.startsWith("wv_csrf="))?.split("=")[1] || "";
+  const cookie = document.cookie.split("; ").find((part) => part.startsWith("wv_csrf="));
+  return cookie ? decodeURIComponent(cookie.slice("wv_csrf=".length)) : "";
 }
 
 function escapeHtml(value) {
@@ -29,6 +30,13 @@ function showToast(msg) {
 }
 
 async function api(path, options = {}) {
+  if (path !== "/api/login") {
+    const csrf = await fetch("/api/csrf", { credentials: "same-origin" });
+    if (csrf.ok) {
+      const data = await csrf.json();
+      if (data.token) document.cookie = `wv_csrf=${encodeURIComponent(data.token)}; path=/; SameSite=Lax`;
+    }
+  }
   const res = await fetch(path, {
     credentials: "same-origin",
     headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken(), ...(options.headers || {}) },

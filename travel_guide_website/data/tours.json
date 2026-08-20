@@ -7,7 +7,11 @@
     "status": "completed",
     "hero": "https://images4.alphacoders.com/743/thumb-1920-743533.jpg",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Sydney Opera House", "Harbour Bridge", "Bondi Beach"],
+    "sights": [
+      "Sydney Opera House",
+      "Harbour Bridge",
+      "Bondi Beach"
+    ],
     "gallery": [
       "https://images4.alphacoders.com/743/thumb-1920-743533.jpg",
       "assets/images/australia-2.jpg",
@@ -28,7 +32,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Petronas Towers", "Batu Caves", "Langkawi"],
+    "sights": [
+      "Petronas Towers",
+      "Batu Caves",
+      "Langkawi"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -45,7 +53,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Marina Bay Sands", "Gardens by the Bay", "Sentosa"],
+    "sights": [
+      "Marina Bay Sands",
+      "Gardens by the Bay",
+      "Sentosa"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -62,8 +74,15 @@
     "status": "completed",
     "hero": "assets/images/hk-skyline.jpg",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Victoria Harbour", "The Peak", "Star Ferry"],
-    "gallery": ["assets/images/hk-skyline.jpg", "https://picsum.photos/seed/hk-3/1200/800"],
+    "sights": [
+      "Victoria Harbour",
+      "The Peak",
+      "Star Ferry"
+    ],
+    "gallery": [
+      "assets/images/hk-skyline.jpg",
+      "https://picsum.photos/seed/hk-3/1200/800"
+    ],
     "video": "",
     "priceFrom": "",
     "duration": "",
@@ -79,7 +98,11 @@
     "status": "completed",
     "hero": "https://thumbs.dreamstime.com/b/macau-september-city-panoramic-view-guia-fortress-348986107.jpg",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Ruins of St. Paul's", "Senado Square", "Macau Tower"],
+    "sights": [
+      "Ruins of St. Paul's",
+      "Senado Square",
+      "Macau Tower"
+    ],
     "gallery": [
       "https://thumbs.dreamstime.com/b/macau-september-city-panoramic-view-guia-fortress-348986107.jpg",
       "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=88"
@@ -99,7 +122,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1528127269322-539801943592?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Ha Long Bay", "Hanoi Old Quarter", "Hoi An"],
+    "sights": [
+      "Ha Long Bay",
+      "Hanoi Old Quarter",
+      "Hoi An"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -116,7 +143,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Grand Palace", "Bangkok", "Phi Phi Islands"],
+    "sights": [
+      "Grand Palace",
+      "Bangkok",
+      "Phi Phi Islands"
+    ],
     "gallery": [],
     "video": "../../Thailand/Thailand_15sec_HD.mp4",
     "priceFrom": "",
@@ -133,7 +164,11 @@
     "status": "completed",
     "hero": "https://about-kazakhstan.com/images/covers-ai/kazakhstan-tourism-real.webp",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Almaty", "Charyn Canyon", "Kok Tobe"],
+    "sights": [
+      "Almaty",
+      "Charyn Canyon",
+      "Kok Tobe"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -150,7 +185,11 @@
     "status": "completed",
     "hero": "https://avatars.mds.yandex.net/get-vertis-journal/4220003/ugc-image_1748591546200/orig",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Registan Square", "Bukhara", "Tashkent"],
+    "sights": [
+      "Registan Square",
+      "Bukhara",
+      "Tashkent"
+    ],
     "gallery": [],
     "video": "../../Uzbekistan/Uzbekistan_15sec_HD.mp4",
     "priceFrom": "",
@@ -167,7 +206,11 @@
     "status": "completed",
     "hero": "assets/images/uae-IMG_6838.JPG",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Burj Khalifa", "Dubai Marina", "Desert Safari"],
+    "sights": [
+      "Burj Khalifa",
+      "Dubai Marina",
+      "Desert Safari"
+    ],
     "gallery": [
       "assets/images/uae-IMG_6838.JPG",
       "assets/images/uae-IMG_6846.JPG",
@@ -194,7 +237,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Yerevan", "Lake Sevan", "Garni Temple"],
+    "sights": [
+      "Yerevan",
+      "Lake Sevan",
+      "Garni Temple"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -211,7 +258,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Tbilisi", "Kazbegi", "Old Town"],
+    "sights": [
+      "Tbilisi",
+      "Kazbegi",
+      "Old Town"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -228,7 +279,11 @@
     "status": "completed",
     "hero": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1600&q=88",
     "description": "Explore a curated collection of iconic sights, culture, food and unforgettable group-tour moments.",
-    "sights": ["Baku Old City", "Flame Towers", "Heydar Aliyev Center"],
+    "sights": [
+      "Baku Old City",
+      "Flame Towers",
+      "Heydar Aliyev Center"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "",
@@ -245,7 +300,12 @@
     "status": "upcoming",
     "hero": "https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp",
     "description": "A cinematic Japan escape blending Tokyo energy, timeless temples, food streets and unforgettable city nights.",
-    "sights": ["Tokyo", "Osaka", "Kyoto","Hiroshima"],
+    "sights": [
+      "Tokyo",
+      "Osaka",
+      "Kyoto",
+      "Hiroshima"
+    ],
     "gallery": [],
     "video": "",
     "priceFrom": "3.9 Lakhs",
@@ -253,15 +313,60 @@
     "seoTitle": "Japan Group Tour 2026 | WanderVista",
     "seoDescription": "Upcoming Japan group tour: Tokyo, Kyoto, Hiroshima and Osaka with a day-by-day itinerary.",
     "itinerary": [
-      { "day": "1", "city": "Tokyo", "highlights": "Arrival, Shibuya Crossing → Hachiko → Center-gai → Cat Street → Takeshita Street → Meiji Jingu → Yoyogi Park → Omotesando", "night": "Tokyo" },
-      { "day": "2", "city": "Tokyo", "highlights": "1st Half - Asakusa : Senso-ji → Nakamise → Asakusa Shrine → Sumida Park → Tokyo Skytree,2nd Half : Ueno Park → Tokyo National Museum → Ameyoko → Okachimachi → Akihabara → Kanda Myojin", "night": "Tokyo" },
-      { "day": "3", "city": "Tokyo", "highlights": "Tokyo Tower → Zojoji → Shiba Park → Tsukiji Outer Market → Odaiba ", "night": "Tokyo" },
-      { "day": "4", "city": "Tokyo", "highlights": "Mount Fiji Full day Trip (Includes Mt. Fuji 5th Station, Lake Kawaguchi, Oishi Park, Chureito Pagoda, Saiko Iyashi-no-Sato Nenba, Kitaguchi-hongu Fuji Sengen Shrine, Mt. Fuji Panoramic Ropeway, Shimoyoshida Honcho Street, Oshino Hakkai, Hakone Open-Air Museum and Gotemba Premium Outlets) ", "night": "Tokyo" },
-      { "day": "5", "city": "Osaka", "highlights": "Fushimi Inari, Kiyomizu-dera, Gion, Nishiki Market", "night": "Osaka" },
-      { "day": "6", "city": "Kyoto", "highlights": "Arashiyama Bamboo Forest,Kinkaku-ji,Ginkaku-ji Temple, Nishiki Market , Kiyomizu-dera , Nijo Castle, Gion Corner , Fushimi Inari Taisha", "night": "Osaka" },
-      { "day": "7", "city": "Hiroshima", "highlights": "Peace Memorial Park, Atomic Bomb Dome, Miyajima", "night": "Hiroshima" },
-      { "day": "8", "city": "Osaka", "highlights": "Osaka Castle, Shinsekai, Kuromon, Dotonbori", "night": "Osaka" },
-      { "day": "9", "city": "Osaka", "highlights": "Umeda, Namba, Shinsaibashi, shopping & departure", "night": "Osaka" }
+      {
+        "day": "1",
+        "city": "Tokyo",
+        "highlights": "Arrival, Shibuya Crossing → Hachiko → Center-gai → Cat Street → Takeshita Street → Meiji Jingu → Yoyogi Park → Omotesando",
+        "night": "Tokyo"
+      },
+      {
+        "day": "2",
+        "city": "Tokyo",
+        "highlights": "1st Half - Asakusa : Senso-ji → Nakamise → Asakusa Shrine → Sumida Park → Tokyo Skytree,2nd Half : Ueno Park → Tokyo National Museum → Ameyoko → Okachimachi → Akihabara → Kanda Myojin",
+        "night": "Tokyo"
+      },
+      {
+        "day": "3",
+        "city": "Tokyo",
+        "highlights": "Tokyo Tower → Zojoji → Shiba Park → Tsukiji Outer Market → Odaiba ",
+        "night": "Tokyo"
+      },
+      {
+        "day": "4",
+        "city": "Tokyo",
+        "highlights": "Mount Fiji Full day Trip (Includes Mt. Fuji 5th Station, Lake Kawaguchi, Oishi Park, Chureito Pagoda, Saiko Iyashi-no-Sato Nenba, Kitaguchi-hongu Fuji Sengen Shrine, Mt. Fuji Panoramic Ropeway, Shimoyoshida Honcho Street, Oshino Hakkai, Hakone Open-Air Museum and Gotemba Premium Outlets) ",
+        "night": "Tokyo"
+      },
+      {
+        "day": "5",
+        "city": "Osaka",
+        "highlights": "Fushimi Inari, Kiyomizu-dera, Gion, Nishiki Market",
+        "night": "Osaka"
+      },
+      {
+        "day": "6",
+        "city": "Kyoto",
+        "highlights": "Arashiyama Bamboo Forest,Kinkaku-ji,Ginkaku-ji Temple, Nishiki Market , Kiyomizu-dera , Nijo Castle, Gion Corner , Fushimi Inari Taisha",
+        "night": "Osaka"
+      },
+      {
+        "day": "7",
+        "city": "Hiroshima",
+        "highlights": "Peace Memorial Park, Atomic Bomb Dome, Miyajima",
+        "night": "Hiroshima"
+      },
+      {
+        "day": "8",
+        "city": "Osaka",
+        "highlights": "Osaka Castle, Shinsekai, Kuromon, Dotonbori",
+        "night": "Osaka"
+      },
+      {
+        "day": "9",
+        "city": "Osaka",
+        "highlights": "Umeda, Namba, Shinsaibashi, shopping & departure",
+        "night": "Osaka"
+      }
     ]
   },
   {
@@ -272,17 +377,39 @@
     "status": "upcoming",
     "hero": "assets/images/seoul-city.jpg",
     "description": "Palaces, markets, contemporary city life and Korean culture — Seoul with a guided group.",
-    "sights": ["Seoul", "Gyeongbokgung", "N Seoul Tower"],
-    "gallery": ["assets/images/seoul-city.jpg", "assets/images/sk-2.jpg", "assets/images/sk-3.jpg"],
+    "sights": [
+      "Seoul",
+      "Gyeongbokgung",
+      "N Seoul Tower"
+    ],
+    "gallery": [
+      "assets/images/seoul-city.jpg",
+      "assets/images/sk-3.jpg"
+    ],
     "video": "",
-    "priceFrom": "",
-    "duration": "3 days",
+    "priceFrom": "2 Lakhs",
+    "duration": "4 days",
     "seoTitle": "South Korea Group Tour 2026 | WanderVista",
     "seoDescription": "Upcoming South Korea group tour: Seoul palaces, markets and city highlights.",
     "itinerary": [
-      { "day": "1", "city": "Seoul", "highlights": "Incheon Airport, Myeongdong, Gangnam", "night": "Seoul" },
-      { "day": "2", "city": "Seoul", "highlights": "Gyeongbokgung Palace, Bukchon Hanok Village, Insadong", "night": "Seoul" },
-      { "day": "3", "city": "Seoul", "highlights": "N Seoul Tower, Lotte World, Han River", "night": "Seoul" }
+      {
+        "day": "1",
+        "city": "Seoul",
+        "highlights": "Incheon Airport, Myeongdong, Gangnam",
+        "night": "Seoul"
+      },
+      {
+        "day": "2",
+        "city": "Seoul",
+        "highlights": "Gyeongbokgung Palace, Bukchon Hanok Village, Insadong",
+        "night": "Seoul"
+      },
+      {
+        "day": "3",
+        "city": "Seoul",
+        "highlights": "N Seoul Tower, Lotte World, Han River",
+        "night": "Seoul"
+      }
     ]
   }
 ]
