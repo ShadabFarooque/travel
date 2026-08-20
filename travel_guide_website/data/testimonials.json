@@ -1,0 +1,26 @@
+[
+  {
+    "id": "t-priya",
+    "name": "Priya Menon",
+    "role": "Family group, UAE tour",
+    "quote": "Everything felt organised without being rushed. The group was friendly and we came home with photographs we will talk about for years.",
+    "rating": 5,
+    "published": true
+  },
+  {
+    "id": "t-rahul",
+    "name": "Rahul Sharma",
+    "role": "First-time international traveller",
+    "quote": "I was nervous about visas, airports and language. WanderVista handled the details so I could actually enjoy the cities.",
+    "rating": 5,
+    "published": true
+  },
+  {
+    "id": "t-anita",
+    "name": "Anita & friends",
+    "role": "Southeast Asia group",
+    "quote": "Beautiful hotels, thoughtful pacing and a guide who knew when to stop for the photo and when to keep moving.",
+    "rating": 5,
+    "published": true
+  }
+]

@@ -1,0 +1,3 @@
+# Private runtime files (password hash, leads). Created by npm start.
+*
+!.gitignore

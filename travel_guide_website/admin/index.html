@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | WanderVista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div id="loginView" class="login">
+    <form class="login-card" id="loginForm">
+      <h1>Admin dashboard</h1>
+      <p class="muted">Run <code>npm start</code> then sign in to edit tours, photos, itineraries, leads, blog, SEO and Analytics.</p>
+      <label>Password</label>
+      <input type="password" id="password" required>
+      <p id="loginError" class="muted"></p>
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <div id="app" class="shell hidden">
+    <aside class="side">
+      <h2>WanderVista</h2>
+      <button data-view="overview" class="active">Overview</button>
+      <button data-view="tours">Tours</button>
+      <button data-view="photos">Photos</button>
+      <button data-view="itinerary">Itinerary</button>
+      <button data-view="leads">Leads</button>
+      <button data-view="blog">Blog</button>
+      <button data-view="testimonials">Testimonials</button>
+      <button data-view="faqs">FAQ</button>
+      <button data-view="seo">SEO & Analytics</button>
+      <button data-view="settings">Settings</button>
+      <a href="../index.html" target="_blank" rel="noopener">View site</a>
+      <button id="logout">Sign out</button>
+    </aside>
+    <main class="main">
+      <div class="top">
+        <div>
+          <h1 id="viewTitle">Overview</h1>
+          <p class="muted" id="viewHint"></p>
+        </div>
+        <button class="btn" id="saveBtn">Save changes</button>
+      </div>
+      <div id="view"></div>
+    </main>
+  </div>
+  <div id="toast"></div>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+node_modules/
+.env
+data/admin-secret.json
+.DS_Store
+Thumbs.db

@@ -1,22 +1,55 @@
-# WanderVista Group Tours Website
+# WanderVista Group Tours
 
-This folder contains the polished WanderVista site you provided. I inspected `travel_guide_website/index.html` and it already includes:
+Professional group-tour website with a local admin dashboard. Public pages read JSON files — you no longer edit one large `index.html` to change tours, photos, itineraries, blog posts or SEO.
 
-- Attractive layout, fonts and hero imagery
-- Destination cards with clickable expand (＋) buttons
-- Local 20s preview videos for Tokyo and Seoul
-- Contact details (phone and email)
+## Daily workflow
 
-What I added:
-- `travel_guide_website/index.backup.html` — a backup of the previous index.
-- A GitHub Actions workflow at `.github/workflows/deploy.yml` (added to support Pages deployment when pushed).
-- Downloaded two preview MP4s into `travel_guide_website/assets/videos/`:
-  - `tokyo_preview.mp4`
-  - `seoul_preview.mp4`
+Install [Node.js LTS](https://nodejs.org) first, then in this folder run:
 
-Next options (pick one):
-- I can prepare and add step-by-step Pages deployment instructions in this README.
-- I can push these changes to GitHub and verify the GitHub Actions Pages deployment.
-- I can publish the site to Netlify/Cloudflare Pages immediately (no git push required).
+```
+npm install
+npm start
+```
 
-Tell me which option you prefer and I will proceed.
+2. Open [http://localhost:3000](http://localhost:3000) for the public site.
+3. Open [http://localhost:3000/admin](http://localhost:3000/admin) for the dashboard.
+
+Default admin password: `WanderVista2026!`  
+Change it immediately under **Settings**.
+
+4. Click **Save changes** after editing. Files update under `travel_guide_website/data/`.
+5. Refresh the public site. When you are ready to publish, commit and push (GitHub Pages still deploys `travel_guide_website`).
+
+## Admin dashboard
+
+| Section | What it does |
+| --- | --- |
+| Tours | Add / edit / delete destinations, cover, price, SEO, highlights |
+| Photos | Reorder, remove, paste URLs, or upload into `assets/uploads/` |
+| Itinerary | Day-by-day city, highlights and overnight |
+| Leads | Enquiry and booking form submissions (stored privately in `data/enquiries.json`) |
+| Blog | Posts shown on `/blog.html` |
+| Testimonials | Homepage quotes |
+| FAQ | Homepage accordion |
+| SEO & Analytics | Meta tags, share image, homepage hero, Google Analytics GA4 ID (`G-XXXXXXXX`) |
+| Settings | Phone, email, WhatsApp number and default message |
+
+## Public pages
+
+- `index.html` — home
+- `tours.html` — all tours
+- `tour.html?id=japan` — itinerary, gallery, enquiry form
+- `blog.html` / `post.html?id=...`
+- `enquire.html` — booking / enquiry form + WhatsApp
+
+WhatsApp uses the international number in Settings (`phoneIntl`, e.g. `919986008726`).
+
+## Google Analytics
+
+Paste your GA4 Measurement ID in **SEO & Analytics** and save. The public site loads `gtag.js` automatically.
+
+## GitHub Pages
+
+The workflow still publishes `travel_guide_website`. The admin API only runs on your computer (`npm start`). Leads are captured when visitors use the form against that server, or when they tap WhatsApp on the live site.
+
+Set `ADMIN_PASSWORD` in the environment before the first start if you do not want the default password written into `data/admin-secret.json`.

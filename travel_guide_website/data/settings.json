@@ -1,0 +1,60 @@
+{
+  "brand": "WanderVista",
+  "tagline": "Travel Beyond the Ordinary",
+  "phone": "9986008726",
+  "phoneIntl": "919986008726",
+  "email": "farooque.shadab@gmail.com",
+  "whatsappMessage": "Hi WanderVista, I would like to enquire about a group tour.",
+  "address": "",
+  "gaMeasurementId": "",
+  "seo": {
+    "title": "WanderVista Group Tours | Curated International Group Travel",
+    "description": "Curated international group tours led by an experienced travel tour guide. Explore Asia, Europe, Australia and the Middle East.",
+    "keywords": "group tours, international travel, Japan tour, South Korea tour, WanderVista",
+    "ogImage": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d7?w=1600&q=80",
+    "canonicalBase": ""
+  },
+  "hero": {
+    "eyebrow": "Curated international group tours",
+    "heading": "Travel farther.",
+    "headingEm": "Experience more.",
+    "text": "Group journeys across iconic cities, hidden gems and unforgettable landscapes — guided with care from take-off to the final photograph.",
+    "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d7?w=2200&q=90"
+  },
+  "stats": [
+    { "value": "15", "label": "International destinations" },
+    { "value": "13+", "label": "Countries already toured" },
+    { "value": "1", "label": "Upcoming Japan + Korea journey" },
+    { "value": "100%", "label": "Group-focused experience" }
+  ],
+  "upcoming": {
+    "tag": "Next adventure · 2026",
+    "title": "Japan + South Korea",
+    "text": "A cinematic East Asia escape blending Tokyo energy, timeless temples, Japanese culture, Korean heritage, street food and unforgettable city nights.",
+    "pills": ["🇯🇵 Tokyo · Mount Fuji", "🇯🇵 Kyoto · Osaka", "🇰🇷 Seoul · Gyeongbokgung", "🇰🇷 N Seoul Tower · Markets"],
+    "ctaTourId": "japan"
+  },
+  "videos": [
+    {
+      "title": "Tokyo, Japan 🇯🇵",
+      "text": "Modern Tokyo, traditional temples, neon streets and iconic cityscapes — a glimpse of the next group journey.",
+      "src": "assets/videos/tokyo_preview.mp4"
+    },
+    {
+      "title": "Seoul, South Korea 🇰🇷",
+      "text": "Palaces, markets, contemporary city life and Korean culture — Seoul in a quick cinematic burst.",
+      "src": "assets/videos/seoul_preview.mp4"
+    }
+  ],
+  "about": {
+    "kicker": "Why travel with a group guide?",
+    "heading": "More than a holiday. A shared story.",
+    "text": "The best group tours are not about ticking boxes. They're about moving smoothly, discovering the right places at the right time, and coming home with stories worth retelling.",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1600&q=85",
+    "features": [
+      { "icon": "🧭", "title": "Guided with purpose", "text": "Thoughtful routes, practical coordination and local highlights built around the group." },
+      { "icon": "🤝", "title": "Group-first experience", "text": "A friendly travel environment designed for families, friends and first-time international travellers." },
+      { "icon": "📸", "title": "Made for memories", "text": "Iconic viewpoints, culture, food and photo moments are woven into every journey." }
+    ]
+  }
+}
