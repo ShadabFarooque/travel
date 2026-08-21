@@ -248,7 +248,32 @@
     "duration": "",
     "seoTitle": "Armenia Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Armenia.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Yerevan",
+    "highlights": "Arrival → Republic Square → Northern Avenue → Cascade Complex → Cafesjian Center for the Arts → Opera House → Swan Lake → Vernissage Market → Victory Park → Mother Armenia",
+    "night": "Yerevan"
+  },
+  {
+    "day": "2",
+    "city": "Yerevan",
+    "highlights": "Garni Temple → Symphony of Stones → Geghard Monastery → Azat Reservoir → Charents Arch → Khor Virap Monastery → Mount Ararat Viewpoint → Return to Yerevan",
+    "night": "Yerevan"
+  },
+  {
+    "day": "3",
+    "city": "Dilijan",
+    "highlights": "Lake Sevan → Sevanavank Monastery → Dilijan National Park → Dilijan Old Town → Sharambeyan Street → Haghartsin Monastery → Goshavank Monastery → Return to Yerevan",
+    "night": "Yerevan"
+  },
+  {
+    "day": "4",
+    "city": "Yerevan",
+    "highlights": "Etchmiadzin Cathedral → Zvartnots Cathedral → Saghmosavank Monastery → Armenian Alphabet Monument → Amberd Fortress → Return to Yerevan → Shopping → Flight Back",
+    "night": "Yerevan"
+  }
+]
   },
   {
     "id": "georgia",
