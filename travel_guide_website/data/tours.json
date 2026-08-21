@@ -269,7 +269,44 @@
     "duration": "",
     "seoTitle": "Kazakhstan Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Kazakhstan.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Almaty",
+    "highlights": "Arrival → Panfilov Park → Zenkov Cathedral → Memorial of Glory → Arbat Street → Green Bazaar → Republic Square → Independence Monument → Kok Tobe Hill → Almaty City Night View",
+    "night": "Almaty"
+  },
+  {
+    "day": "2",
+    "city": "Almaty",
+    "highlights": "Full Day Charyn Canyon Trip → Black Canyon → Charyn Canyon Valley of Castles → Charyn River → Scenic Viewpoints → Return to Almaty",
+    "night": "Almaty"
+  },
+  {
+    "day": "3",
+    "city": "Almaty",
+    "highlights": "Medeu Skating Rink → Shymbulak Mountain Resort → Cable Car Ride → Talgar Pass → Mountain Viewpoints → Big Almaty Lake → Return to Almaty",
+    "night": "Almaty"
+  },
+  {
+    "day": "4",
+    "city": "Almaty",
+    "highlights": "Kolsai Lakes National Park → Kolsai Lake → Kaindy Lake → Sunken Forest → Saty Village → Mountain Scenery → Return to Almaty",
+    "night": "Almaty"
+  },
+  {
+    "day": "5",
+    "city": "Astana",
+    "highlights": "Flight Almaty → Astana → Nur-Sultan/Astana City Center → Bayterek Tower → Nurzhol Boulevard → Ak Orda Presidential Palace → Astana Opera → Ishim River Embankment → Khan Shatyr Entertainment Center → Night View",
+    "night": "Astana"
+  },
+  {
+    "day": "6",
+    "city": "Astana",
+    "highlights": "Grand Mosque → National Museum of Kazakhstan → Palace of Peace and Reconciliation → Hazret Sultan Mosque → Expo 2017 Area → Nur Alem Museum → Independence Square → Shopping → Flight Back",
+    "night": "Astana"
+  }
+]
   },
   {
     "id": "uzbekistan",
