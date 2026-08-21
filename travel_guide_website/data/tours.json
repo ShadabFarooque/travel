@@ -395,7 +395,50 @@
     "duration": "",
     "seoTitle": "UAE Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from the UAE.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Dubai",
+    "highlights": "Arrival → Dubai Marina → Marina Walk → JBR Beach → Bluewaters Island → Ain Dubai → Dubai Marina Dinner Cruise → Dubai Marina Night View",
+    "night": "Dubai"
+  },
+  {
+    "day": "2",
+    "city": "Dubai",
+    "highlights": "Burj Khalifa → Dubai Mall → Dubai Aquarium & Underwater Zoo → Dubai Fountain → Souk Al Bahar → Downtown Dubai → Museum of the Future → Dubai Frame → Zabeel Park",
+    "night": "Dubai"
+  },
+  {
+    "day": "3",
+    "city": "Dubai",
+    "highlights": "Palm Jumeirah → Palm West Beach → Atlantis The Palm → The Lost Chambers Aquarium → Aquaventure Waterpark → The View at The Palm → Nakheel Mall → Sheikh Zayed Road Night View",
+    "night": "Dubai"
+  },
+  {
+    "day": "4",
+    "city": "Dubai",
+    "highlights": "Dubai Creek → Al Fahidi Historical Neighbourhood → Al Seef → Dubai Museum Area → Abra Ride → Gold Souk → Spice Souk → Deira → Dubai Mall → Evening Shopping",
+    "night": "Dubai"
+  },
+  {
+    "day": "5",
+    "city": "Dubai",
+    "highlights": "Full Day Desert Safari → Dune Bashing → Sandboarding → Camel Ride → Bedouin Camp → Henna Painting → BBQ Dinner → Tanoura Show → Belly Dance → Fire Show → Desert Sunset",
+    "night": "Dubai"
+  },
+  {
+    "day": "6",
+    "city": "Abu Dhabi",
+    "highlights": "Dubai → Sheikh Zayed Grand Mosque → Wahat Al Karama → Emirates Palace → Qasr Al Watan → Corniche → Heritage Village → Yas Island → Ferrari World Abu Dhabi → Yas Bay Waterfront → Return to Dubai",
+    "night": "Dubai"
+  },
+  {
+    "day": "7",
+    "city": "Dubai",
+    "highlights": "Dubai Miracle Garden → Global Village → Mall of the Emirates → Ski Dubai → Madinat Jumeirah → Souk Madinat Jumeirah → Burj Al Arab Viewpoint → Shopping → Airport Transfer → Flight Back",
+    "night": "Dubai"
+  }
+]
   },
   {
     "id": "armenia",
