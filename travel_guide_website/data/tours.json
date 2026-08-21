@@ -294,7 +294,32 @@
     "duration": "",
     "seoTitle": "Georgia Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Georgia.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Tbilisi",
+    "highlights": "Arrival → Old Tbilisi → Metekhi Church → Rike Park → Bridge of Peace → Narikala Fortress → Mother of Georgia → Abanotubani Sulphur Baths → Meidan Square → Shardeni Street",
+    "night": "Tbilisi"
+  },
+  {
+    "day": "2",
+    "city": "Tbilisi",
+    "highlights": "Holy Trinity Cathedral (Sameba) → Chronicle of Georgia → Mtatsminda Park → Tbilisi Funicular → Freedom Square → Rustaveli Avenue → Georgian National Museum → Dry Bridge Market",
+    "night": "Tbilisi"
+  },
+  {
+    "day": "3",
+    "city": "Kazbegi",
+    "highlights": "Full Day Kazbegi Trip: Zhinvali Reservoir → Ananuri Fortress → Gudauri → Russia-Georgia Friendship Monument → Jvari Pass → Stepantsminda → Gergeti Trinity Church → Return to Tbilisi",
+    "night": "Tbilisi"
+  },
+  {
+    "day": "4",
+    "city": "Kakheti",
+    "highlights": "Full Day Kakheti Trip: Sighnaghi → Sighnaghi City Wall → Bodbe Monastery → Alazani Valley → Telavi → Wine Tasting → Georgian Traditional Lunch → Return to Tbilisi → Shopping → Flight Back",
+    "night": "Tbilisi"
+  }
+]
   },
   {
     "id": "azerbaijan",
