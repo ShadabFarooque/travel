@@ -43,7 +43,32 @@
     "duration": "",
     "seoTitle": "Malaysia Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Kuala Lumpur and Malaysia.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Kuala Lumpur",
+    "highlights": "Arrival → Petronas Twin Towers → KLCC Park → Suria KLCC → Merdeka Square → Sultan Abdul Samad Building → Masjid Jamek → Central Market → Chinatown (Petaling Street) → Jalan Alor Night Market",
+    "night": "Kuala Lumpur"
+  },
+  {
+    "day": "2",
+    "city": "Kuala Lumpur",
+    "highlights": "Batu Caves → Royal Selangor Visitor Centre → National Palace → Perdana Botanical Gardens → National Mosque → Islamic Arts Museum → Thean Hou Temple → Bukit Bintang → Pavilion Kuala Lumpur",
+    "night": "Kuala Lumpur"
+  },
+  {
+    "day": "3",
+    "city": "Genting Highlands",
+    "highlights": "Full Day Genting Highlands Trip: Genting SkyWorlds → Genting Cable Car → Chin Swee Caves Temple → SkyAvenue → Casino Resort World Genting → Return to Kuala Lumpur",
+    "night": "Kuala Lumpur"
+  },
+  {
+    "day": "4",
+    "city": "Kuala Lumpur",
+    "highlights": "Putrajaya → Putra Mosque → Putrajaya Lake → Putrajaya Bridge → Perdana Putra → Kuala Lumpur Bird Park → KL Tower → Shopping at Bukit Bintang → Flight Back",
+    "night": "Kuala Lumpur"
+  }
+]
   },
   {
     "id": "singapore",
@@ -64,7 +89,38 @@
     "duration": "",
     "seoTitle": "Singapore Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Singapore.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Singapore",
+    "highlights": "Arrival → Marina Bay Sands → Merlion Park → Helix Bridge → Gardens by the Bay → Cloud Forest → Flower Dome → Marina Bay Waterfront → Spectra Light & Water Show",
+    "night": "Singapore"
+  },
+  {
+    "day": "2",
+    "city": "Singapore",
+    "highlights": "Universal Studios Singapore → Resorts World Sentosa → Sentosa Island → Siloso Beach → Wings of Time → Sentosa Cable Car",
+    "night": "Singapore"
+  },
+  {
+    "day": "3",
+    "city": "Singapore",
+    "highlights": "Singapore Zoo → Rainforest KidzWorld → River Wonders → Night Safari → Mandai Wildlife Reserve",
+    "night": "Singapore"
+  },
+  {
+    "day": "4",
+    "city": "Singapore",
+    "highlights": "Little India → Sri Veeramakaliamman Temple → Kampong Glam → Sultan Mosque → Haji Lane → Chinatown → Buddha Tooth Relic Temple → Clarke Quay → Singapore River Cruise",
+    "night": "Singapore"
+  },
+  {
+    "day": "5",
+    "city": "Singapore",
+    "highlights": "Jewel Changi Airport → Rain Vortex → Orchard Road → ION Orchard → Marina Bay Sands SkyPark → Shopping → Flight Back",
+    "night": "Singapore"
+  }
+]
   },
   {
     "id": "hong-kong",
@@ -88,7 +144,38 @@
     "duration": "",
     "seoTitle": "Hong Kong Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Hong Kong.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Hong Kong",
+    "highlights": "Arrival → Victoria Harbour → Tsim Sha Tsui → Avenue of Stars → Hong Kong Cultural Centre → Clock Tower → Harbour City → Symphony of Lights → Temple Street Night Market",
+    "night": "Hong Kong"
+  },
+  {
+    "day": "2",
+    "city": "Hong Kong",
+    "highlights": "Victoria Peak → Peak Tram → Sky Terrace 428 → Madame Tussauds Hong Kong → Central → Mid-Levels Escalator → Lan Kwai Fong → SoHo → Man Mo Temple",
+    "night": "Hong Kong"
+  },
+  {
+    "day": "3",
+    "city": "Hong Kong",
+    "highlights": "Lantau Island → Ngong Ping 360 Cable Car → Ngong Ping Village → Tian Tan Buddha → Po Lin Monastery → Tai O Fishing Village → Tai O Heritage Hotel → Return to Hong Kong",
+    "night": "Hong Kong"
+  },
+  {
+    "day": "4",
+    "city": "Hong Kong",
+    "highlights": "Disneyland Hong Kong → Main Street U.S.A. → Fantasyland → Adventureland → Tomorrowland → World of Frozen → Mystic Manor → Nighttime Fireworks → Return to Hotel",
+    "night": "Hong Kong"
+  },
+  {
+    "day": "5",
+    "city": "Hong Kong",
+    "highlights": "Ocean Park Hong Kong → Waterfront → Ocean Express → Marine World → Summit → Giant Panda Adventure → The Waterfront → Causeway Bay → Times Square → Shopping → Flight Back",
+    "night": "Hong Kong"
+  }
+]
   },
   {
     "id": "macau",
@@ -112,7 +199,14 @@
     "duration": "",
     "seoTitle": "Macau Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Macau.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Macau",
+    "highlights": "Arrival → Ruins of St. Paul's → Senado Square → St. Dominic's Church → Na Tcha Temple → Mount Fortress → Macau Museum → A-Ma Temple → Macau Fisherman's Wharf → The Venetian Macao → Cotai Strip → Eiffel Tower at The Parisian Macao → Wynn Palace → Night View → Return to Hong Kong",
+    "night": "Hong Kong"
+  }
+]
   },
   {
     "id": "vietnam",
