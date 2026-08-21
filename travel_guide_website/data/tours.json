@@ -327,7 +327,44 @@
     "duration": "",
     "seoTitle": "Uzbekistan Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Uzbekistan.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Tashkent",
+    "highlights": "Arrival → Amir Timur Square → Amir Timur Museum → Independence Square → Broadway Street → Tashkent City Park → Magic City → Chorsu Bazaar → Kukeldash Madrasah → Tashkent Metro Tour",
+    "night": "Tashkent"
+  },
+  {
+    "day": "2",
+    "city": "Tashkent",
+    "highlights": "Hazrati Imam Complex → Muyi Muborak Madrasah → Tilla Sheikh Mosque → Barak Khan Madrasah → Chorsu Bazaar → Minor Mosque → Tashkent TV Tower → Lal Bahadur Shastri Memorial → Evening Shopping",
+    "night": "Tashkent"
+  },
+  {
+    "day": "3",
+    "city": "Samarkand",
+    "highlights": "High-Speed Train Tashkent → Samarkand → Registan Square → Ulugbek Madrasah → Sher-Dor Madrasah → Tilla-Kari Madrasah → Gur-e-Amir Mausoleum → Amir Timur Mausoleum → Siyob Bazaar → Bibi-Khanym Mosque",
+    "night": "Samarkand"
+  },
+  {
+    "day": "4",
+    "city": "Samarkand",
+    "highlights": "Shah-i-Zinda Necropolis → Afrasiab Museum → Ulugbek Observatory → Konigil Paper Mill → Hazrat Khizr Mosque → Samarkand Silk Road Complex → Evening Registan Square Light Show",
+    "night": "Samarkand"
+  },
+  {
+    "day": "5",
+    "city": "Bukhara",
+    "highlights": "High-Speed Train Samarkand → Bukhara → Lyabi-Hauz Complex → Nadir Divan-Begi Madrasah → Kukeldash Madrasah → Magoki-Attori Mosque → Trade Domes → Abdulaziz Khan Madrasah → Poi Kalon Complex → Kalon Minaret → Kalon Mosque → Mir-i-Arab Madrasah",
+    "night": "Bukhara"
+  },
+  {
+    "day": "6",
+    "city": "Bukhara",
+    "highlights": "Ark of Bukhara → Bolo Haouz Mosque → Samanid Mausoleum → Chashma Ayub Mausoleum → Chor Minor → Bahoutdin Naqshbandi Complex → Bukhara Old Town → Traditional Uzbek Lunch → Shopping → Flight Back",
+    "night": "Bukhara"
+  }
+]
   },
   {
     "id": "uae",
