@@ -296,7 +296,7 @@
     "id": "japan",
     "name": "Japan",
     "flag": "🇯🇵",
-    "region": "Upcoming · East Asia ·3 Lakhs ",
+    "region": "Upcoming · East Asia ·3.5 Lakhs ",
     "status": "upcoming",
     "hero": "https://www.hostelworld.com/blog/wp-content/uploads/day-trips-from-tokyo-scaled.webp",
     "description": "A cinematic Japan escape blending Tokyo energy, timeless temples, food streets and unforgettable city nights.",
@@ -308,7 +308,7 @@
     ],
     "gallery": [],
     "video": "",
-    "priceFrom": "3.9 Lakhs",
+    "priceFrom": "3.5 Lakhs",
     "duration": "9 days",
     "seoTitle": "Japan Group Tour 2026 | WanderVista",
     "seoDescription": "Upcoming Japan group tour: Tokyo, Kyoto, Hiroshima and Osaka with a day-by-day itinerary.",
@@ -357,15 +357,9 @@
       },
       {
         "day": "8",
-        "city": "Osaka",
-        "highlights": "Osaka Castle, Shinsekai, Kuromon, Dotonbori",
-        "night": "Osaka"
-      },
-      {
-        "day": "9",
-        "city": "Osaka",
-        "highlights": "Umeda, Namba, Shinsaibashi, shopping & departure",
-        "night": "Osaka"
+        "city": "Tokyo",
+        "highlights": "Flight back",
+        "night": "Tokyo"
       }
     ]
   },
