@@ -290,7 +290,38 @@
     "duration": "",
     "seoTitle": "Azerbaijan Group Tour | WanderVista",
     "seoDescription": "Group tour highlights from Azerbaijan.",
-    "itinerary": []
+    "itinerary": [
+  {
+    "day": "1",
+    "city": "Baku",
+    "highlights": "Arrival and rest",
+    "night": "Baku"
+  },
+  {
+    "day": "2",
+    "city": "Baku",
+    "highlights": "Baku Old City (Icherisheher) → Maiden Tower → Palace of the Shirvanshahs → Miniature Book Museum → Baku Boulevard → Carpet Museum → Highland Park → Martyrs' Lane → Flame Towers",
+    "night": "Baku"
+  },
+  {
+    "day": "3",
+    "city": "Baku",
+    "highlights": "Gobustan National Park → Gobustan Mud Volcanoes → Bibi-Heybat Mosque → Ateshgah Fire Temple → Yanar Dag → Heydar Aliyev Center → Nizami Street → Fountains Square",
+    "night": "Baku"
+  },
+  {
+    "day": "4",
+    "city": "Gabala",
+    "highlights": "Full Day Gabala Trip: Nohur Lake → Seven Beauties Waterfall → Gabala Cable Car → Tufandag Mountain Resort → Yeddi Gozel Waterfall → Gabala Shooting Center → Return to Baku",
+    "night": "Baku"
+  },
+  {
+    "day": "5",
+    "city": "Baku",
+    "highlights": "Guba → Candy Canes → Shahdag Mountain Resort → Return to Baku",
+    "night": "Baku"
+  }
+]
   },
   {
     "id": "japan",
